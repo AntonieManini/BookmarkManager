@@ -1,8 +1,7 @@
 package com.anton.project.service;
 
-import org.springframework.stereotype.Service;
 
-@Service
-public class BookmarkService {
+import com.anton.project.domain.Bookmark;
 
+public interface BookmarkService extends CrudService<Bookmark>{
 }

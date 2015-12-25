@@ -3,6 +3,7 @@ package com.anton.project.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,7 +38,7 @@ public class Folder {
 		this.name = name;
 	}
 	
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@Column(name = "BOOKMARK_ID", table="BOOKMARK")
 	public Set<Bookmark> getBookmarks() {
 		return bookmarks;

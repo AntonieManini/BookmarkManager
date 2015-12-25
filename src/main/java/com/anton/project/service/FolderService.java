@@ -1,8 +1,8 @@
 package com.anton.project.service;
 
-import org.springframework.stereotype.Service;
+import com.anton.project.domain.Folder;
 
-@Service
-public class FolderService {
+
+public interface FolderService extends CrudService<Folder> {
 
 }

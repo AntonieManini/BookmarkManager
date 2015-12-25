@@ -1,5 +1,7 @@
 package com.anton.project.dao;
 
-public interface BookmarkDao {
+import com.anton.project.domain.Bookmark;
+
+public interface BookmarkDao extends Crud<Bookmark>{
 
 }

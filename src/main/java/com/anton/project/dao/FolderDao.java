@@ -1,5 +1,6 @@
 package com.anton.project.dao;
 
-public interface FolderDao {
+import com.anton.project.domain.Folder;
 
+public interface FolderDao extends Crud<Folder> {
 }

@@ -5,11 +5,18 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
-	<bean id="sessionFactory" class="">
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="persistenceXmlLocation" value="classpath:/META-INF/persistence.xml"/>
+		<property name="persistenceUnitName" value="bookmarkManagerPersistenceUnitName"/>
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
 	</bean>
 	
-	<tx:annotation-driven transaction-manager=""/>
+	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 	
-	<tx:jta-transaction-manager></tx:jta-transaction-manager>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	</bean>
 </beans>

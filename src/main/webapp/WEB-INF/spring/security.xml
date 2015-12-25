@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<security:http>
+		<security:intercept-url pattern="/folders" access=""/>
+		<security:intercept-url pattern="/bookmarks" access=""/>
+		
+		<security:access-denied-handler error-page=""/>
+		
+		<security:form-login 
+			login-page="/login"
+			default-target-url=""
+			authentication-failure-url=""
+			login-processing-url=""
+			username-parameter=""
+			password-parameter=""
+		/>
+		
+		<security:logout logout-success-url=""/>
+		
+		<security:remember-me
+			
+		/>
+		
+		<security:csrf/>
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="securityUserService">
+			<security:password-encoder hash="bcrypt"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
 
 </beans>

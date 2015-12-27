@@ -30,7 +30,7 @@ public class Folder {
 		this.folderId = folderId;
 	}
 	
-	@Column(name="NAME", length=20, nullable=false)
+	@Column(name="NAME", length=45, nullable=false)
 	public String getName() {
 		return name;
 	}
@@ -38,14 +38,11 @@ public class Folder {
 		this.name = name;
 	}
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@Column(name = "BOOKMARK_ID", table="BOOKMARK")
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="folder")
 	public Set<Bookmark> getBookmarks() {
 		return bookmarks;
 	}
 	public void setBookmarks(Set<Bookmark> bookmarks) {
 		this.bookmarks = bookmarks;
-	}
-
-	
+	}	
 }

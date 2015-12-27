@@ -10,33 +10,33 @@ import org.springframework.web.servlet.ModelAndView;
 import com.anton.project.domain.Bookmark;
 import com.anton.project.service.BookmarkService;
 
-@Controller("/bookmarks")
+@Controller
 public class BookmarkController {
 	@Autowired
 	private BookmarkService bookmarkService;
 	
-	@RequestMapping(value="/add", method=RequestMethod.POST)
+	@RequestMapping(value="/bookmarks/add", method=RequestMethod.POST)
 	public String addBookmark(@RequestParam(name="id", required=true) int folderId, @RequestParam Bookmark bookmark) {
 		bookmarkService.addObject(folderId, bookmark);
 		
 		return "bookmarks";
 	}
 	
-	@RequestMapping(value="/update", method=RequestMethod.POST)
+	@RequestMapping(value="/bookmarks/update", method=RequestMethod.POST)
 	public String updateBookmark(@RequestParam Bookmark bookmark) {
 		bookmarkService.updateObject(bookmark);
 		
 		return "bookmarks";
 	}
 	
-	@RequestMapping(value="/delete", method=RequestMethod.GET)
+	@RequestMapping(value="/bookmarks/delete", method=RequestMethod.GET)
 	public String deleteBookmark(@RequestParam int id) {
 		bookmarkService.deleteObject(id);
 		
 		return "bookmarks";
 	}
 	
-	@RequestMapping(value="/", method=RequestMethod.GET)
+	@RequestMapping(value="/bookmarks", method=RequestMethod.GET)
 	public ModelAndView getAllBookmarks(@RequestParam int folderId) {
 		ModelAndView model = new ModelAndView("bookmarks");
 		

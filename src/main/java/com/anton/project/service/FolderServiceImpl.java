@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.anton.project.dao.FolderDao;
 import com.anton.project.domain.Folder;
 
-@Component
+@Service
 public class FolderServiceImpl implements FolderService {
 	@Autowired
 	private FolderDao folderDao;
@@ -19,15 +19,13 @@ public class FolderServiceImpl implements FolderService {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Transactional
+	
 	public void addObject(Folder folder) {
 		folderDao.insert(folder);
 	}
 
 	public void deleteObject(int id) {
-		// TODO Auto-generated method stub
-		
+		folderDao.delete(id);
 	}
 
 	public void updateObject(Folder t) {

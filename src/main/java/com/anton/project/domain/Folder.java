@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -38,7 +39,7 @@ public class Folder {
 		this.name = name;
 	}
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="folder")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="folder")
 	public Set<Bookmark> getBookmarks() {
 		return bookmarks;
 	}

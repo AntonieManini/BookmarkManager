@@ -23,8 +23,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 	}
 
 	public void deleteObject(int id) {
-		// TODO Auto-generated method stub
-		
+		bookmarkDao.delete(id);
 	}
 
 	public void updateObject(Bookmark t) {

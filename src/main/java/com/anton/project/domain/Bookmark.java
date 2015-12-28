@@ -21,6 +21,7 @@ public class Bookmark {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="BOOKMARK_ID")
 	public Integer getBookmarkId() {
 		return bookmarkId;
 	}

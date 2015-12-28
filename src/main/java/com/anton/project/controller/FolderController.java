@@ -33,7 +33,7 @@ public class FolderController {
 		return "redirect:/folders";
 	}
 	
-	@RequestMapping(value="/folders/delete", method=RequestMethod.GET)
+	@RequestMapping(value="/folders/delete", method=RequestMethod.POST)
 	public String deleteFolder(@RequestParam int id) {
 		folderService.deleteObject(id);
 		

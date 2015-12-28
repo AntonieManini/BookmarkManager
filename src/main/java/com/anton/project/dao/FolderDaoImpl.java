@@ -12,7 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.anton.project.domain.Folder;
 
-@Component
+@Repository
+@Transactional
 public class FolderDaoImpl implements FolderDao {
 	private EntityManager em;
 	

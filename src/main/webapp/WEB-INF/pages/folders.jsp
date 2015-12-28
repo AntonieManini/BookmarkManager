@@ -30,7 +30,10 @@
 		
 	</sec:authorize> -->
 	
-	<form name="additionForm" action="<c:url value="/folders/add" />" method="post">
+	<c:url value="/folders/add" var="addFolderUrl"/>
+	<c:url value="/folders/delete" var="deleteFolderUrl"/>
+	
+	<form name="additionForm" action="${addFolderUrl}" method="post">
 		<input type="text" name="name"/>
 		<input type="submit" value="Add New Folder"/>
 	</form>
@@ -42,9 +45,14 @@
 		
 		<c:forEach var="f" items="${folders}">
 			<tr>
-				<td><a href="">${f.name}</a></td>
-				<td><button id="folderEdit">Edit</button></td>
-				<td><button id="folderDelete">Delete</button></td>
+				<td><a href="<c:url value="/bookmarks?id=${f.folderId}" />">${f.name}</a></td>
+				<td><button id="folderEdit">Edit</button></td>				
+				<td>
+					<form action="${deleteFolderUrl}" method="post">
+						<input type="hidden" name="id" value="${f.folderId}"/>
+						<input type="submit" value="Delete"/>
+					</form>
+				</td>
 			</tr>			
 		</c:forEach>	
 	</table>

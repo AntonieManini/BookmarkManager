@@ -1,5 +1,7 @@
 package com.anton.project.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.anton.project.domain.Folder;
 import com.anton.project.service.FolderService;
@@ -47,5 +51,12 @@ public class FolderController {
 		model.addObject("folders", folderService.getAllObjects());
 		
 		return model;
+	}
+	
+	@RequestMapping(value="/folders/export", method=RequestMethod.POST)
+	public void export(HttpServletResponse response) throws IOException {
+		response.setHeader("content-type", "text/plain");
+		response.setHeader("content-disposition", "attachment; filename=export.txt");
+		response.getWriter().write("Hello World");
 	}
 }

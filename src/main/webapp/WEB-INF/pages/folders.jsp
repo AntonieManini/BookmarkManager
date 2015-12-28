@@ -32,6 +32,12 @@
 	
 	<c:url value="/folders/add" var="addFolderUrl"/>
 	<c:url value="/folders/delete" var="deleteFolderUrl"/>
+	<c:url value="/folders/export" var="exportUrl"/>
+	
+	<form name="exportForm" action="${exportUrl}" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		<input type="submit" value="Export"/>
+	</form>
 	
 	<form name="additionForm" action="${addFolderUrl}" method="post">
 		<input type="text" name="name"/>

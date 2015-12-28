@@ -5,34 +5,35 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<security:http>
-		<security:intercept-url pattern="/folders" access=""/>
-		<security:intercept-url pattern="/bookmarks" access=""/>
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/folders**" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/bookmarks**" access="hasRole('ROLE_USER')"/>
 		
-		<security:access-denied-handler error-page=""/>
+	<!-- <security:access-denied-handler error-page=""/> -->
 		
-		<security:form-login 
+	 	<security:form-login 
 			login-page="/login"
-			default-target-url=""
-			authentication-failure-url=""
-			login-processing-url=""
-			username-parameter=""
-			password-parameter=""
+			default-target-url="/folders"
+			authentication-failure-url="/login?error"			
+			username-parameter="username"
+			password-parameter="password"
 		/>
 		
-		<security:logout logout-success-url=""/>
-		
-		<security:remember-me
-			
-		/>
+	 	<security:logout logout-success-url="/login?logout"/>
 		
 		<security:csrf/>
 	</security:http>
 	
 	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="anton" password="123456" authorities="ROLE_USER"/>
+			</security:user-service>
+		</security:authentication-provider>
+	
 		<security:authentication-provider user-service-ref="securityUserService">
 			<security:password-encoder hash="bcrypt"/>
-		</security:authentication-provider>
+		</security:authentication-provider>		
 	</security:authentication-manager>
 
 </beans>

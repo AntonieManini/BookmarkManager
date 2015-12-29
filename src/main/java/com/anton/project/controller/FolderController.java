@@ -34,7 +34,7 @@ public class FolderController {
 	public String updateFolder(@RequestParam(name="folderId") int folderId, @RequestParam(name="name") String name) {
 		folderService.updateObject(folderId, name);
 		
-		return "redirect:/folders";
+		return "";
 	}
 	
 	@RequestMapping(value="/folders/delete", method=RequestMethod.POST)

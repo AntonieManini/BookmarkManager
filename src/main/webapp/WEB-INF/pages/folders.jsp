@@ -45,10 +45,12 @@
 	
 	<form name="additionForm" action="${addFolderUrl}" method="post">
 		<input type="text" name="name"/>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<input type="submit" value="Add New Folder"/>
 	</form>
 	
 	<table>
+		<th></th>
 		<th>Folder Name</th>
 		<th></th>
 		<th></th>
@@ -73,7 +75,6 @@
 	</div>
 
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js"/>"></script>
-	<script src="<c:url value="/resources/js/jquery.jeditable.mini.js"/>"></script>
-	<script src="<c:url value="/resources/js/main.js"/>"></script>
+	<script src="<c:url value="/resources/js/folders.js"/>"></script>
 </body>
 </html>

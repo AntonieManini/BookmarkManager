@@ -33,8 +33,12 @@ public class BookmarkDaoImpl implements BookmarkDao {
 		em.flush();
 	}
 
-	public void update(Bookmark bookmark) {
-		em.merge(bookmark);
+	public void update(int id, String desc, String url) {
+		Bookmark bookmark = em.find(Bookmark.class, id);
+		bookmark.setDesc(desc);
+		bookmark.setUrl(url);
+		
+		em.flush();
 	}
 
 	public void delete(int id) {

@@ -6,7 +6,7 @@ $(document).ready(function() {
 		if ($(this).html() == "Edit") {
 			var folder_name = $(row).find(".folder_name").html();
 			
-			$column.find("a").remove();
+			$column.children().remove();
 			
 			$column.append(
 				$("<input/>", {class: "folder_name", type: "text", name: "name", value: folder_name})
@@ -17,9 +17,6 @@ $(document).ready(function() {
 			var folder_name = $(row).find(".folder_name").prop("value");
 			var csrf_header = $("meta[name='_csrf_header']").attr("content");
 			var csrf_token = $("meta[name='_csrf']").attr("content");
-			
-			console.log(folder_id);
-			console.log(folder_name);
 			
 			$.ajax({
 				type: "POST",

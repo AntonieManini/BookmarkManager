@@ -27,8 +27,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 	}
 
 	public void updateObject(int id, String desc, String url) {
-		// TODO Auto-generated method stub
-		
+		bookmarkDao.update(id, desc, url);
 	}
 
 	public List<Bookmark> getAllObjects() {

@@ -24,10 +24,12 @@ public class BookmarkController {
 	}
 	
 	@RequestMapping(value="/bookmarks/update", method=RequestMethod.POST)
-	public String updateBookmark(@RequestParam int bookmarkId, @RequestParam String desc, @RequestParam String url) {
+	public String updateBookmark(@RequestParam(name="bookmarkId") int bookmarkId, 
+								 @RequestParam(name="desc") String desc,
+								 @RequestParam(name="url") String url) {
 		bookmarkService.updateObject(bookmarkId, desc, url);
 		
-		return "bookmarks";
+		return "";
 	}
 	
 	@RequestMapping(value="/bookmarks/delete", method=RequestMethod.POST)

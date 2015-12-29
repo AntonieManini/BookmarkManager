@@ -26,7 +26,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 		bookmarkDao.delete(id);
 	}
 
-	public void updateObject(Bookmark t) {
+	public void updateObject(int id, String desc, String url) {
 		// TODO Auto-generated method stub
 		
 	}

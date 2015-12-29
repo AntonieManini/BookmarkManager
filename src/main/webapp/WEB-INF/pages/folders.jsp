@@ -6,14 +6,18 @@
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	
+	<meta name="_csrf" content="${_csrf.token}"/>
+	<meta name="_csrf_header" content="${_csrf.headerName}"/>
+	
 	<title>Folders</title>
 	</head>
 <body>
 
-<!-- <sec:authorize access="hasRole('ROLE_USER')">
-		<c:url var="logoutUrl" value="/j_spring_security_logout"/>
+	<sec:authorize access="hasRole('ROLE_USER')">
+		<c:url var="logoutUrl" value="/logout"/>
 		
-		<form id="logoutForm" action="${logoutUrl}">
+		<form id="logoutForm" action="${logoutUrl}" method="post">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		</form>
 		
@@ -28,7 +32,7 @@
 			<button id="logoutButton" onclick="logoutForm()">Logout</button>
 		</c:if>
 		
-	</sec:authorize> -->
+	</sec:authorize>
 	
 	<c:url value="/folders/add" var="addFolderUrl"/>
 	<c:url value="/folders/delete" var="deleteFolderUrl"/>
@@ -51,8 +55,9 @@
 		
 		<c:forEach var="f" items="${folders}">
 			<tr>
-				<td><a href="<c:url value="/bookmarks?id=${f.folderId}" />">${f.name}</a></td>
-				<td><button id="folderEdit">Edit</button></td>				
+				<td><input class="folder_id" type="hidden" value="${f.folderId}"/></td>
+				<td><a class="folder_name" href="<c:url value="/bookmarks?id=${f.folderId}" />">${f.name}</a></td>
+				<td><button class="editButton">Edit</button></td>				
 				<td>
 					<form action="${deleteFolderUrl}" method="post">
 						<input type="hidden" name="id" value="${f.folderId}"/>
@@ -62,6 +67,13 @@
 			</tr>			
 		</c:forEach>	
 	</table>
+	
+	<div id="csrf">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	</div>
 
+	<script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.jeditable.mini.js"/>"></script>
+	<script src="<c:url value="/resources/js/main.js"/>"></script>
 </body>
 </html>

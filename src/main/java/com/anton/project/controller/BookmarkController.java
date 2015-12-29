@@ -24,8 +24,8 @@ public class BookmarkController {
 	}
 	
 	@RequestMapping(value="/bookmarks/update", method=RequestMethod.POST)
-	public String updateBookmark(@RequestParam Bookmark bookmark) {
-		bookmarkService.updateObject(bookmark);
+	public String updateBookmark(@RequestParam int bookmarkId, @RequestParam String desc, @RequestParam String url) {
+		bookmarkService.updateObject(bookmarkId, desc, url);
 		
 		return "bookmarks";
 	}

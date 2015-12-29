@@ -31,8 +31,8 @@ public class FolderController {
 	}
 	
 	@RequestMapping(value="/folders/update", method=RequestMethod.POST)
-	public String updateFolder(@RequestParam Folder folder) {
-		folderService.updateObject(folder);
+	public String updateFolder(@RequestParam(name="folderId") int folderId, @RequestParam(name="name") String name) {
+		folderService.updateObject(folderId, name);
 		
 		return "redirect:/folders";
 	}

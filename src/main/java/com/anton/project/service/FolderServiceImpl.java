@@ -16,8 +16,6 @@ public class FolderServiceImpl implements FolderService {
 	private FolderDao folderDao;
 
 	public void addObject(int id, Folder t) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public void addObject(Folder folder) {
@@ -28,9 +26,8 @@ public class FolderServiceImpl implements FolderService {
 		folderDao.delete(id);
 	}
 
-	public void updateObject(Folder t) {
-		// TODO Auto-generated method stub
-		
+	public void updateObject(int id, String name) {
+		folderDao.update(id, name);
 	}
 
 	public List<Folder> getAllObjects() {
@@ -40,5 +37,4 @@ public class FolderServiceImpl implements FolderService {
 	public List<Folder> getAllObjects(int id) {
 		return null;
 	}
-
 }

@@ -28,8 +28,12 @@ public class FolderDaoImpl implements FolderDao {
 		em.flush();		
 	}
 
-	public void update(Folder folder) {
-		em.merge(folder);
+	public void update(int id, String name) {
+		Folder folder = em.find(Folder.class, id);
+		folder.setName(name);
+		
+		
+		em.flush();
 	}
 
 	public void delete(int id) {

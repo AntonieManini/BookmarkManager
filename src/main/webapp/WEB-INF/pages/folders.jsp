@@ -37,11 +37,17 @@
 	<c:url value="/folders/add" var="addFolderUrl"/>
 	<c:url value="/folders/delete" var="deleteFolderUrl"/>
 	<c:url value="/folders/export" var="exportUrl"/>
+	<c:url value="/folders/import" var="importUrl"/>
 	
-	<form name="exportForm" action="${exportUrl}" method="post">
+	<form name="exportForm" action="${exportUrl}" method="get">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<input type="submit" value="Export"/>
 	</form>
+	
+	<form name="importForm" action="${importUrl}" method="post" enctype="multipart/form-data">
+		<input type="file" name="file"/>
+		<input type="submit" value="Import"/>
+	</form>	
 	
 	<form name="additionForm" action="${addFolderUrl}" method="post">
 		<input type="text" name="name"/>

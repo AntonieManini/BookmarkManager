@@ -1,15 +1,19 @@
 package com.anton.project.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.anton.project.domain.Bookmark;
 import com.anton.project.service.BookmarkService;
+import com.anton.project.util.TitleExtractor;
 
 @Controller
 public class BookmarkController {
@@ -48,6 +52,17 @@ public class BookmarkController {
 		model.addObject("bookmarkForm", new Bookmark());		
 		
 		return model;
+	}
+	
+	@RequestMapping(value="/bookmarks/title", method=RequestMethod.POST)
+	public @ResponseBody String getTitle(@RequestParam(name="url") String url) {
+		try {
+			return TitleExtractor.getPageTitle(url);
+		} catch (IOException e) {
+			e.printStackTrace();
+			
+			return "";
+		}
 	}	
 }
 

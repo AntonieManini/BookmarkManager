@@ -66,4 +66,19 @@ public class BookmarkDaoImpl implements BookmarkDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int getBookmarkByUrl(String url) {
+		TypedQuery<Bookmark> query = em.createQuery("SELECT b FROM Bookmark b WHERE b.url=:bookmarkUrl", Bookmark.class);
+
+		query.setParameter("bookmarkUrl", url);
+		
+		List<Bookmark> list = query.getResultList();
+		if (list.size() != 0) {
+			return list.get(0).getBookmarkId();
+		}
+		else {
+			return -1;
+		}
+	}
 }

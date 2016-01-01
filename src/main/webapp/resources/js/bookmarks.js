@@ -57,4 +57,23 @@ $(document).ready(function() {
 		$(this).html($(this).html() == "Edit" ? "Update" : "Edit");
 		
 	});
+	
+	$("#inputUrl").bind("paste", function (e) {
+		var pastedUrl = e.originalEvent.clipboardData.getData("text");
+		var csrf_header = $("meta[name='_csrf_header']").attr("content");
+		var csrf_token = $("meta[name='_csrf']").attr("content");
+		
+		
+		$.ajax({
+			type: "POST",
+			url: "./bookmarks/title",
+			data: {url: pastedUrl},
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader(csrf_header, csrf_token);
+			},			
+			success: function(data) {
+				$("#inputDesc").prop("value", data);
+			}
+		});
+	});
 });

@@ -11,4 +11,5 @@ public interface FolderDao {
 	void delete(int id);
 	List<Folder> getAllObjects();
 	List<Folder> getAllObjects(int id);
+	int getFolderByName(String name);
 }

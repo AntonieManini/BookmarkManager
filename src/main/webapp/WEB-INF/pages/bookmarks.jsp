@@ -17,8 +17,8 @@
 	
 	<form:form name="bookmarkAddFrom" action="${addBookmarkUrl}" method="post" commandName="bookmarkForm">
 		<input type="hidden" name="id" value="${folderId}"/>
-		<form:input type="text" path="desc"/>
-		<form:input type="text" path="url"/>
+		<form:input id="inputDesc" type="text" path="desc"/>
+		<form:input id="inputUrl" type="text" path="url"/>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<input type="submit" value="Add New Bookmark"/>
 	</form:form>

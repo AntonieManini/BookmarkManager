@@ -30,11 +30,20 @@ public class FolderDaoImpl implements FolderDao {
 		em.persist(folder);
 		em.flush();		
 	}
+	
+	public void insert(Folder folder, int parentId) {
+		Folder parent = em.find(Folder.class, parentId);
+		
+		if (parent != null) folder.setParent(parent);
+		parent.getChildren().add(folder);
+		
+		em.persist(folder);
+		em.flush();
+	}	
 
 	public void update(int id, String name) {
 		Folder folder = em.find(Folder.class, id);
 		folder.setName(name);
-		
 		
 		em.flush();
 	}
@@ -46,15 +55,15 @@ public class FolderDaoImpl implements FolderDao {
 	}
 	
 	public List<Folder> getAllObjects() {
-		Query query = em.createNativeQuery("SELECT * FROM FOLDER", Folder.class);
+		TypedQuery<Folder> query = em.createQuery("SELECT f FROM Folder f WHERE f.parent=NULL", Folder.class);
 		
-		return (List<Folder>)query.getResultList();
+		List<Folder> result = (List<Folder>)query.getResultList();
+		
+		System.out.println(result.size());
+		
+		return result;
 	}
 
-	public void insert(Folder folder, int id) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public List<Folder> getAllObjects(int id) {
 		// TODO Auto-generated method stub

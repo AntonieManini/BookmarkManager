@@ -36,11 +36,16 @@ public class FolderController {
 	private ImportService importService;
 	
 	@RequestMapping(value="/folders/add", method=RequestMethod.POST)
-	public String addFolder(@RequestParam String name) {
+	public String addFolder(@RequestParam String name, @RequestParam int parentId) {
 		Folder folder = new Folder();
 		folder.setName(name);
 		
-		folderService.addObject(folder);
+		if (parentId != 0) {
+			folderService.addObject(folder, parentId);
+		}
+		else {
+			folderService.addObject(folder);
+		}
 		
 		return "redirect:/folders";
 	}

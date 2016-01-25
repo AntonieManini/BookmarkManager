@@ -6,7 +6,7 @@ import com.anton.project.domain.Folder;
 
 public interface FolderDao {
 	void insert(Folder t);
-	void insert(Folder t, int id);
+	void insert(Folder t, int parentId);
 	void update(int id, String name);
 	void delete(int id);
 	List<Folder> getAllObjects();

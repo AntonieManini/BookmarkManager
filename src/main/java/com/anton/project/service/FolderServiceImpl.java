@@ -37,4 +37,9 @@ public class FolderServiceImpl implements FolderService {
 	public List<Folder> getAllObjects(int id) {
 		return null;
 	}
+
+	@Override
+	public void addObject(Folder t, int parentId) {
+		folderDao.insert(t, parentId);
+	}
 }

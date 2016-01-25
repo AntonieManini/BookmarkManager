@@ -38,4 +38,42 @@ $(document).ready(function() {
 		$(this).html($(this).html() == "Edit" ? "Update" : "Edit");
 		
 	});
+	
+	
+	$(".addFolderButton").click(function() {
+		var row = $(this).parent("li");
+		
+		$(row).addClass("parent");
+		
+		$(row).append(
+			$("<ul/>").append(
+				$("<li/>", {class: "temporal"}).append(
+					$("<input/>", {type: "text", placeholder: "Enter Folder Name"}),
+					$("<button/>", {class: "submitNewSubFolderButton"}).html("Submit")
+				)
+			)
+		);
+		
+		$(".submitNewSubFolderButton").click(function() {
+			var folder_name = $(".temporal").find("input").prop("value");
+			var parent_id = $(".parent").find(".folder_id").prop("value");
+			
+			console.log(folder_name + " " + parent_id);
+			var csrf_header = $("meta[name='_csrf_header']").attr("content");
+			var csrf_token = $("meta[name='_csrf']").attr("content");
+			
+			$.ajax({
+				type: "POST",
+				url: "./folders/add",
+				data: {name: folder_name, parentId: parent_id},
+/*				beforeSend: function(xhr) {
+					xhr.setRequestHeader(csrf_header, csrf_token);
+				}*/
+			});
+			
+			$(".parent").removeClass("parent");
+			$(".temporal").children().remove();
+			$(".temporal").removeClass("temporal");
+		});		
+	});
 });

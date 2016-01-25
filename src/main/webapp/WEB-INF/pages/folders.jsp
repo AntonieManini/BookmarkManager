@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -55,26 +56,9 @@
 		<input type="submit" value="Add New Folder"/>
 	</form>
 	
-	<table>
-		<th></th>
-		<th>Folder Name</th>
-		<th></th>
-		<th></th>
-		
-		<c:forEach var="f" items="${folders}">
-			<tr>
-				<td><input class="folder_id" type="hidden" value="${f.folderId}"/></td>
-				<td><a class="folder_name" href="<c:url value="/bookmarks?id=${f.folderId}" />">${f.name}</a></td>
-				<td><button class="editButton">Edit</button></td>				
-				<td>
-					<form action="${deleteFolderUrl}" method="post">
-						<input type="hidden" name="id" value="${f.folderId}"/>
-						<input type="submit" value="Delete"/>
-					</form>
-				</td>
-			</tr>			
-		</c:forEach>	
-	</table>
+	<ul>
+		<custom:folderTree list="${folders}"></custom:folderTree>
+	</ul>
 	
 	<div id="csrf">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

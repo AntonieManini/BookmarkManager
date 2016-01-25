@@ -1,6 +1,8 @@
 package com.anton.project.domain;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,6 +22,10 @@ import javax.persistence.Table;
 public class Folder {
 	private Integer folderId;
 	private String name;
+	
+	private Folder parent;
+	private List<Folder> children = new LinkedList<Folder>();
+	
 	private Set<Bookmark> bookmarks = new HashSet<Bookmark>();
 	
 	@Id
@@ -45,5 +52,22 @@ public class Folder {
 	}
 	public void setBookmarks(Set<Bookmark> bookmarks) {
 		this.bookmarks = bookmarks;
-	}	
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="PARENT_ID")
+	public Folder getParent() {
+		return parent;
+	}
+	public void setParent(Folder parent) {
+		this.parent = parent;
+	}
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="parent")
+	public List<Folder> getChildren() {
+		return children;
+	}
+	public void setChildren(List<Folder> children) {
+		this.children = children;
+	}
 }

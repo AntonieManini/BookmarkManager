@@ -14,7 +14,16 @@
 	<context:component-scan base-package="com.anton.project.dao"></context:component-scan>
 	<context:component-scan base-package="com.anton.project.service"></context:component-scan>	
 	
-	<mvc:annotation-driven></mvc:annotation-driven>	
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+		  <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+              <property name="objectMapper">
+                  <bean class="com.anton.project.dao.HibernateAwareObjectMapper" />
+              </property>
+          </bean>		
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+		
 	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -1,22 +1,49 @@
-body {
+html, body {
+	height: 100%;
 	margin: 0;
-	padding: 0;
-	
+	padding: 0;	
+}
+
+.header {
+	height: 10%;
+}
+
+form {
+	float: left;
+}
+
+.container {
+	height: 90%;
+	background-color: #e6e6e6;
+}
+
+#horizontal-line {
+	width: 100%;
+	height: 1px;
+	background-color: black;
 }
 
 .pane {
-	float:left;
+	float:left;	
+	height: 80%;	
 }
 
 #tree-pane {
-	max-width: 50%;
-	min-width: 150px;
-	width: 200px;
-	height: 100%;
-	background-color: lightblue;
+	width: 30%;	
 }
 
 #list-pane {
-	max-width: 50%;
-	background-color: #FF0000;
+	width: 70%;
+}
+
+.tree_header, .list_header {
+	height: 50px;
+	margin: 10px;
+}
+
+.tree_content, .list_content {
+	border: solid 1px black;
+	margin: 10px;
+	height: 100%;
+	background-color: #ffffff;
 }

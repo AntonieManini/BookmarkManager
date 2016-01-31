@@ -1,6 +1,7 @@
 package com.anton.project.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,29 +21,43 @@ public class BookmarkController {
 	@Autowired
 	private BookmarkService bookmarkService;
 	
+	/*
 	@RequestMapping(value="/bookmarks/add", method=RequestMethod.POST)
 	public String addBookmark(@RequestParam(name="id", required=true) int folderId, @ModelAttribute("bookmarkForm") Bookmark bookmark) {
 		bookmarkService.addObject(folderId, bookmark);
 		
 		return "redirect:/bookmarks?id="+folderId;
 	}
+	*/
+
+	
+	@RequestMapping(value="/bookmarks/add", method=RequestMethod.POST)
+	public @ResponseBody void addBookmark(@RequestParam(name="desc") String desc, @RequestParam(name="url") String url, @RequestParam(name="id", required=true) int folderId) {
+		Bookmark bookmark = new Bookmark();
+		bookmark.setDesc(desc);
+		bookmark.setUrl(url);
+		
+		System.out.println(desc);
+		System.out.println(url);
+		System.out.println(folderId);
+		
+		bookmarkService.addObject(folderId, bookmark);
+	}
+	
 	
 	@RequestMapping(value="/bookmarks/update", method=RequestMethod.POST)
-	public String updateBookmark(@RequestParam(name="bookmarkId") int bookmarkId, 
+	public @ResponseBody void updateBookmark(@RequestParam(name="bookmarkId") int bookmarkId, 
 								 @RequestParam(name="desc") String desc,
 								 @RequestParam(name="url") String url) {
 		bookmarkService.updateObject(bookmarkId, desc, url);
-		
-		return "";
 	}
 	
 	@RequestMapping(value="/bookmarks/delete", method=RequestMethod.POST)
-	public String deleteBookmark(@RequestParam(name="id") int id, @RequestParam(name="folderId") int folderId) {
+	public @ResponseBody void deleteBookmark(@RequestParam(name="id") int id) {
 		bookmarkService.deleteObject(id);
-		
-		return "redirect:/bookmarks?id="+folderId;
 	}
-	
+
+/*	
 	@RequestMapping(value="/bookmarks", method=RequestMethod.GET)
 	public ModelAndView getAllBookmarks(@RequestParam(name="id", required=true) int folderId) {
 		ModelAndView model = new ModelAndView("bookmarks");
@@ -52,6 +67,12 @@ public class BookmarkController {
 		model.addObject("bookmarkForm", new Bookmark());		
 		
 		return model;
+	}
+*/
+
+	@RequestMapping(value="/bookmarks", method=RequestMethod.GET)
+	public @ResponseBody List<Bookmark> getAllBookmarks(@RequestParam(name="id", required=true) int folderId) {
+		return bookmarkService.getAllObjects(folderId);
 	}
 	
 	@RequestMapping(value="/bookmarks/title", method=RequestMethod.POST)

@@ -49,10 +49,14 @@ public class BookmarkDaoImpl implements BookmarkDao {
 	}
 	
 	public List<Bookmark> getAllObjects(int folderId) {
+/*
 		TypedQuery<Bookmark> query = em.createQuery("SELECT b FROM Bookmark b WHERE b.folder=:folder", Bookmark.class);
 		
 		Folder folder = em.find(Folder.class, folderId);
 		query.setParameter("folder", folder);
+*/
+		Query query = em.createNativeQuery("SELECT * FROM BOOKMARK WHERE FOLDER_ID=:folder_id", Bookmark.class);
+		query.setParameter("folder_id", folderId);
 		
 		return query.getResultList();
 	}
@@ -67,7 +71,7 @@ public class BookmarkDaoImpl implements BookmarkDao {
 		return null;
 	}
 
-	@Override
+	
 	public int getBookmarkByUrl(String url) {
 		TypedQuery<Bookmark> query = em.createQuery("SELECT b FROM Bookmark b WHERE b.url=:bookmarkUrl", Bookmark.class);
 

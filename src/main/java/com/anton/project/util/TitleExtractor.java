@@ -25,7 +25,7 @@ public class TitleExtractor {
 			return "";
 		}
 		else {
-			Charset charset = getCharset(type);
+			Charset charset = null;//getCharset(type);
 			if (charset == null) {
 				charset = Charset.defaultCharset();
 			}

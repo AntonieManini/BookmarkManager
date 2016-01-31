@@ -22,9 +22,8 @@ import com.anton.project.domain.Folder;
 
 public class XmlImportProvider implements ImportProvider {
 
-	@Override
 	public List<Folder> doImport(InputStream in) {
-		List<Folder> list = new LinkedList<>();
+		List<Folder> list = new LinkedList<Folder>();
 		
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -47,7 +46,7 @@ public class XmlImportProvider implements ImportProvider {
 					folder.setName(folderName);
 					
 					if (element.getElementsByTagName("bookmarks").getLength() != 0) {
-						Set<Bookmark> bookmarks = new HashSet<>();
+						Set<Bookmark> bookmarks = new HashSet<Bookmark>();
 
 						NodeList bookmarkList = element.getElementsByTagName("bookmark");
 						

@@ -58,9 +58,6 @@ public class FolderDaoImpl implements FolderDao {
 		TypedQuery<Folder> query = em.createQuery("SELECT f FROM Folder f WHERE f.parent=NULL", Folder.class);
 		
 		List<Folder> result = (List<Folder>)query.getResultList();
-		
-		System.out.println(result.size());
-		
 		return result;
 	}
 
@@ -70,8 +67,6 @@ public class FolderDaoImpl implements FolderDao {
 		return null;
 	}
 
-
-	@Override
 	public int getFolderByName(String name) {
 		TypedQuery<Folder> query = em.createQuery("SELECT f FROM Folder f WHERE f.name=:folderName", Folder.class);
 		

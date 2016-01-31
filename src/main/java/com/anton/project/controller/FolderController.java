@@ -36,7 +36,7 @@ public class FolderController {
 	private ImportService importService;
 	
 	@RequestMapping(value="/folders/add", method=RequestMethod.POST)
-	public String addFolder(@RequestParam String name, @RequestParam int parentId) {
+	public @ResponseBody void addFolder(@RequestParam String name, @RequestParam int parentId) {
 		Folder folder = new Folder();
 		folder.setName(name);
 		
@@ -46,28 +46,26 @@ public class FolderController {
 		else {
 			folderService.addObject(folder);
 		}
-		
-		return "redirect:/folders";
 	}
 	
 	@RequestMapping(value="/folders/update", method=RequestMethod.POST)
-	public String updateFolder(@RequestParam(name="folderId") int folderId, @RequestParam(name="name") String name) {
+	public @ResponseBody void updateFolder(@RequestParam(name="folderId") int folderId, @RequestParam(name="name") String name) {
 		folderService.updateObject(folderId, name);
-		
-		return "";
 	}
 	
 	@RequestMapping(value="/folders/delete", method=RequestMethod.POST)
-	public String deleteFolder(@RequestParam int id) {
+	public @ResponseBody void deleteFolder(@RequestParam int id) {
 		folderService.deleteObject(id);
-		
-		return "redirect:/folders";
 	}
 	
-	@RequestMapping(value="/folders", method=RequestMethod.GET)
+	@RequestMapping(value="/", method=RequestMethod.GET)
 	public ModelAndView getAllFolders() {
-		ModelAndView model = new ModelAndView("folders");
+		ModelAndView model = new ModelAndView("index");
 		
+		List<Folder> list = folderService.getAllObjects();
+		for (Folder f : list) {
+			System.out.println(f.getName());
+		}
 		model.addObject("folders", folderService.getAllObjects());
 		
 		return model;

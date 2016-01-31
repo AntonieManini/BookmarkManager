@@ -6,11 +6,8 @@
 	<li>
 		<input class="folder_id" type="hidden" value="${f.folderId}"/>
  		<a class="folder_name" href="<c:url value="/bookmarks?id=${f.folderId}" />">${f.name}</a>
-		<button class="editButton">Edit</button>				
-		<form action="${deleteFolderUrl}" method="post">
-			<input type="hidden" name="id" value="${f.folderId}"/>
-			<input type="submit" value="Delete"/>
-		</form>
+		<button class="editButton">Edit</button>
+		<button class="deleteButton">Delete</button>				
 		<button class="addFolderButton">Add Folder</button>
 
 		<c:if test="${not empty f.children}">			

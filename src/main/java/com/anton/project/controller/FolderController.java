@@ -43,6 +43,9 @@ public class FolderController {
 	
 	@RequestMapping(value="/folders/add", method=RequestMethod.POST)
 	public @ResponseBody void addFolder(@RequestParam String name, @RequestParam int parentId) {
+		System.out.println("Folder Name: " + name);
+		System.out.println("parentId: " + parentId);
+		
 		Folder folder = new Folder();
 		folder.setName(name);
 		

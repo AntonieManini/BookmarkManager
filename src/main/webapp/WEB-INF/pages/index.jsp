@@ -51,11 +51,10 @@
 	<div class="container">
 		<div id="tree-pane" class="pane">
 			<div class="tree_header">
-				<form name="additionForm" action="${addFolderUrl}" method="post">
-					<input type="text" name="name"/>
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-					<input type="submit" value="Add New Folder"/>
-				</form>			
+				<div id="folderAddForm">
+					<input class="newFolderName" type="text" name="name"/>
+					<input id="addFolderSubmit" type="submit" value="Add New Folder"/>
+				</div>			
 			</div>
 			<div class="tree_content">
 				<ul>

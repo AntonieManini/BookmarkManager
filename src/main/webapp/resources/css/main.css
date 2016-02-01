@@ -46,4 +46,5 @@ form {
 	margin: 10px;
 	height: 100%;
 	background-color: #ffffff;
+	overflow: auto;
 }

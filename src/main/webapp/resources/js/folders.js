@@ -1,4 +1,22 @@
 $(document).ready(function() {
+	$("#addFolderSubmit").on("click", function() {
+		var _name_ = $("#folderAddForm").find(".newFolderName").prop("value");		
+		var csrf_header = $("meta[name='_csrf_header']").attr("content");
+		var csrf_token = $("meta[name='_csrf']").attr("content");
+
+		$.ajax({
+			type: "POST",
+			url: "./folders/add",
+			data: {name: _name_, parentId: 0},
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader(csrf_header, csrf_token);
+			},
+			success: function() {
+				window.location.reload();
+			}
+		});
+	});
+	
 	$(".editButton").click(function() {
 		var row = $(this).parent('li');		
 		var $pointer = $(row).find(".folder_id");
@@ -14,16 +32,16 @@ $(document).ready(function() {
 		else {
 			var folder_id = $(row).find(".folder_id").attr("value");
 			var folder_name = $(row).find(".folder_name").prop("value");
-//			var csrf_header = $("meta[name='_csrf_header']").attr("content");
-//			var csrf_token = $("meta[name='_csrf']").attr("content");
+			var csrf_header = $("meta[name='_csrf_header']").attr("content");
+			var csrf_token = $("meta[name='_csrf']").attr("content");
 			
 			$.ajax({
 				type: "POST",
 				url: "./folders/update",
 				data: {name: folder_name, folderId: folder_id},
-/*				beforeSend: function(xhr) {
+				beforeSend: function(xhr) {
 					xhr.setRequestHeader(csrf_header, csrf_token);
-				}*/
+				}
 			});
 			
 			$(row).find(".folder_name").remove();
@@ -41,18 +59,24 @@ $(document).ready(function() {
 	$(".deleteButton").click(function() {
 		var folder_id = $(this).parent("li").find(".folder_id").prop("value");
 		var row = $(this).parent("li");
+		var csrf_header = $("meta[name='_csrf_header']").attr("content");
+		var csrf_token = $("meta[name='_csrf']").attr("content");
+		
 		
 		$.ajax({
 			type: "POST",
 			url: "./folders/delete",
 			data: {id: folder_id},
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader(csrf_header, csrf_token);
+			},			
 			success: function() {
 				$(row).remove();
 			}
 		});
 	});
 	
-	$(".addFolderButton").click(function() {
+	$(".addSubFolderButton").click(function() {
 		var row = $(this).parent("li");
 		
 		$(row).addClass("parent");
@@ -77,9 +101,9 @@ $(document).ready(function() {
 				type: "POST",
 				url: "./folders/add",
 				data: {name: folder_name, parentId: parent_id},
-/*				beforeSend: function(xhr) {
+				beforeSend: function(xhr) {
 					xhr.setRequestHeader(csrf_header, csrf_token);
-				},*/
+				},
 				success: function() {
 					window.location.reload();
 				}

@@ -8,7 +8,7 @@
  		<a class="folder_name" href="<c:url value="/bookmarks?id=${f.folderId}" />">${f.name}</a>
 		<button class="editButton">Edit</button>
 		<button class="deleteButton">Delete</button>				
-		<button class="addFolderButton">Add Folder</button>
+		<button class="addSubFolderButton">Add Folder</button>
 
 		<c:if test="${not empty f.children}">			
 	 		<ul>

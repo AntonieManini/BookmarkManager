@@ -2,9 +2,11 @@ package com.anton.project.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,9 +17,10 @@ import com.anton.project.security.domain.User;
 
 @Controller
 public class LoginController {
+	@Autowired
 	private UserDao userDao;
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method=RequestMethod.GET)
 	public ModelAndView login(
 			@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
@@ -35,14 +38,24 @@ public class LoginController {
 		return model;
 	}
 	
+	@RequestMapping(value="/register", method=RequestMethod.GET)
+	public ModelAndView register() {
+		ModelAndView model = new ModelAndView("register");
+		model.addObject("user", new User());
+		
+		return model;
+	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String register(@RequestParam User user) {
+	public String register(@ModelAttribute User user) {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
-		user.setPassword(encoder.encode(user.getPassword()));
+		user.setPassword(encoder.encode(user.getPassword()));		
+		user.setEnabled(true);
+		
+		System.out.println(user.getPassword());
 		
 		userDao.addUser(user, "USER");
 		
-		return "folders";		
+		return "redirect:/";		
 	}
 }

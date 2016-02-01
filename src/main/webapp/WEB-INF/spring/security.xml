@@ -5,15 +5,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<security:http auto-config="true" use-expressions="true">
-		<security:intercept-url pattern="/folders**" access="hasRole('ROLE_USER')"/>
-		<security:intercept-url pattern="/bookmarks**" access="hasRole('ROLE_USER')"/>
-		
-	<!-- <security:access-denied-handler error-page=""/> -->
+	<security:http auto-config="true" use-expressions="true">    	
+    	<security:intercept-url pattern="/resources/**" access="hasRole('ROLE_USER')" />
+    	<security:intercept-url pattern="/" access="hasRole('ROLE_USER')" />
 		
 	 	<security:form-login 
 			login-page="/login"
-			default-target-url="/folders"
+			login-processing-url="/login"
+			default-target-url="/"
 			authentication-failure-url="/login?error"			
 			username-parameter="username"
 			password-parameter="password"

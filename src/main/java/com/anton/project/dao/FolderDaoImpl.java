@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.anton.project.domain.Bookmark;
 import com.anton.project.domain.Folder;
+import com.anton.project.security.util.SecurityUtil;
 
 @Repository
 @Transactional
@@ -26,9 +27,11 @@ public class FolderDaoImpl implements FolderDao {
 	}
 
 	
-	public void insert(Folder folder) {		
+	public void insert(Folder folder) {
+		folder.setUsername(SecurityUtil.getUsername());
+		
 		em.persist(folder);
-		em.flush();		
+		em.flush();
 	}
 	
 	public void insert(Folder folder, int parentId) {
@@ -36,6 +39,8 @@ public class FolderDaoImpl implements FolderDao {
 		
 		if (parent != null) folder.setParent(parent);
 		parent.getChildren().add(folder);
+		
+		folder.setUsername(SecurityUtil.getUsername());
 		
 		em.persist(folder);
 		em.flush();
@@ -55,16 +60,13 @@ public class FolderDaoImpl implements FolderDao {
 	}
 	
 	public List<Folder> getAllObjects() {
-		TypedQuery<Folder> query = em.createQuery("SELECT f FROM Folder f WHERE f.parent=NULL", Folder.class);
+		//System.out.println(SecurityUtil.getUsername());
+		
+		TypedQuery<Folder> query = em.createQuery("SELECT f FROM Folder f WHERE f.parent=NULL AND f.username=:user", Folder.class);
+		query.setParameter("user", SecurityUtil.getUsername());
 		
 		List<Folder> result = (List<Folder>)query.getResultList();
 		return result;
-	}
-
-
-	public List<Folder> getAllObjects(int id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public int getFolderByName(String name) {
@@ -79,5 +81,12 @@ public class FolderDaoImpl implements FolderDao {
 		else {
 			return -1;
 		}
+	}
+
+
+	@Override
+	public List<Folder> getAllObjects(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -9,11 +9,6 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
-	<context:component-scan base-package="com.anton.project.controller"></context:component-scan>
-	<context:component-scan base-package="com.anton.project.domain"></context:component-scan>
-	<context:component-scan base-package="com.anton.project.dao"></context:component-scan>
-	<context:component-scan base-package="com.anton.project.service"></context:component-scan>	
-	
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 		  <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -23,6 +18,12 @@
           </bean>		
 		</mvc:message-converters>
 	</mvc:annotation-driven>
+
+	<context:component-scan base-package="com.anton.project.controller"></context:component-scan>
+	<context:component-scan base-package="com.anton.project.domain"></context:component-scan>
+	<context:component-scan base-package="com.anton.project.dao"></context:component-scan>
+	<context:component-scan base-package="com.anton.project.service"></context:component-scan>	
+	
 		
 	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
 	

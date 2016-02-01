@@ -12,11 +12,13 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.anton.project.security.dao.UserDao;
 import com.anton.project.security.domain.*;
 
 @Service(value="securityUserService")
+@Transactional
 public class SecurityUserService implements UserDetailsService {
 	@Autowired
 	private UserDao userDao;

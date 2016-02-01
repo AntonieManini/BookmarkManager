@@ -24,6 +24,8 @@ public class Folder {
 	private String name;
 	
 	private Folder parent;
+	
+	private String username;
 	private List<Folder> children = new LinkedList<Folder>();
 	
 	private Set<Bookmark> bookmarks = new HashSet<Bookmark>();
@@ -70,4 +72,14 @@ public class Folder {
 	public void setChildren(List<Folder> children) {
 		this.children = children;
 	}
+	
+	@Column(name="USERNAME", length=45, nullable=false)
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	
 }

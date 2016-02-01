@@ -26,8 +26,10 @@
 		</script>
 		
 		<c:if test="${pageContext.request.userPrincipal.name != null }">
-			<h3>Hello ${pageContext.request.userPrincipal.name}!</h3>
-			<button id="logoutButton" onclick="logoutForm()">Logout</button>
+			<div class="authenticated-user">
+				<h3 class="authenticated-user">Hello ${pageContext.request.userPrincipal.name}!</h3>
+				<button class="authenticated-user" id="logoutButton" onclick="logoutForm()">Logout</button>
+			</div>
 		</c:if>
 		
 	</sec:authorize>

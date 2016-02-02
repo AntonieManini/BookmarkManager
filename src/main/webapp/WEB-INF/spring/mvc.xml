@@ -50,5 +50,10 @@
 	</bean>
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
-	</bean>
+	</bean><!-- Used with Servlet 3.0 additional multipart-config xml should be added for DispatcherServlet-->
+	
+	
+<!-- <bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/> -->
+	
+	<bean id="importOption" class="com.anton.project.backup.do_import.ImportOption"></bean>
 </beans>

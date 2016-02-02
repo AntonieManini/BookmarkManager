@@ -1,17 +1,11 @@
 package com.anton.project.controller;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +21,7 @@ import javax.servlet.http.Part;
 import com.anton.project.backup.do_export.ExportFileType;
 import com.anton.project.backup.do_export.ExportManager;
 import com.anton.project.backup.do_import.ImportManager;
+import com.anton.project.backup.do_import.ImportOption;
 import com.anton.project.domain.Bookmark;
 import com.anton.project.domain.Folder;
 import com.anton.project.service.FolderService;
@@ -72,10 +67,8 @@ public class FolderController {
 		ModelAndView model = new ModelAndView("index");
 		
 		List<Folder> list = folderService.getAllObjects();
-		for (Folder f : list) {
-			System.out.println(f.getName());
-		}
 		model.addObject("folders", folderService.getAllObjects());
+		model.addObject("importOption", new ImportOption());
 		
 		return model;
 	}
@@ -90,26 +83,41 @@ public class FolderController {
 	}
 	
 	@RequestMapping(value="/folders/import", method=RequestMethod.POST)
-	public @ResponseBody String doImport(@RequestParam(name="file") MultipartFile file) {
+	public String doImport(@ModelAttribute ImportOption importOption, @RequestParam MultipartFile file) {
 		try {
 			List<Folder> folders = ImportManager.doImport(file.getInputStream());
 			
-			for (Folder folder : folders) {
-				System.out.println(folder.getName());
-				
-				for (Bookmark bookmark : folder.getBookmarks()) {
-					System.out.println("  " + bookmark.getDesc());
-					System.out.println("  " + bookmark.getUrl());
+			class Output {
+				public void printFolders(List<Folder> folders) {
+					for (Folder f : folders) {
+						System.out.println("__" + f.getName() + "__");
+						
+						for (Bookmark b : f.getBookmarks()) {
+							System.out.println("	" + b.getDesc() + "  " + b.getUrl());
+						}
+						
+						if (f.getChildren().size() != 0) {
+							printFolders(f.getChildren());
+						}
+					}
 				}
-				
-				System.out.println();
 			}
 			
-			importService.merge(folders);
+			new Output().printFolders(folders);
+			/*
+			if (importOption.getOption().equals("merge")) {
+				importService.merge(folders);
+			}
+			else if (importOption.getOption().equals("overwrite")) {
+				importService.merge(folders);
+			}
+			else {
+				//throw exception
+			}*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return "";
+		return "redirect:/";
 	}
 }

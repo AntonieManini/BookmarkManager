@@ -42,7 +42,7 @@ public class XmlExportProvider implements ExportProvider {
 				folderElement.appendChild(folderName);
 				
 				if (folder.getBookmarks().size() != 0) {
-					Element bookmarks = doc.createElement("bookmarks");
+					Element bookmarksElement = doc.createElement("bookmarks");
 					
 					for (Bookmark bookmark : folder.getBookmarks()) {
 						Element bookmarkElement = doc.createElement("bookmark");
@@ -55,13 +55,17 @@ public class XmlExportProvider implements ExportProvider {
 						
 						bookmarkElement.appendChild(bookmarkDesc);
 						bookmarkElement.appendChild(bookmarkUrl);
-						bookmarks.appendChild(bookmarkElement);
+						bookmarksElement.appendChild(bookmarkElement);
 					}
 					
-					folderElement.appendChild(bookmarks);
-				}			
+					folderElement.appendChild(bookmarksElement);
+				}
 				
-				rootElement.appendChild(folderElement);				
+				if (folder.getChildren().size() != 0) {
+					addFolderChildren(folder.getChildren(), folderElement, doc);
+				}
+				
+				rootElement.appendChild(folderElement);
 			}
 			
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -78,6 +82,49 @@ public class XmlExportProvider implements ExportProvider {
 		}
 		catch (TransformerException e) {
 		}		
+	}
+	
+	public void addFolderChildren(List<Folder> children, Element parentFolderElement, Document doc) {
+		Element foldersElement = doc.createElement("folders");
+		
+		for (Folder folder : children) {
+			Element folderElement = doc.createElement("folder");
+			
+			Element folderName = doc.createElement("name");
+			folderName.appendChild(doc.createTextNode(folder.getName()));
+			
+			folderElement.appendChild(folderName);
+			
+			if (folder.getBookmarks().size() != 0) {
+				Element bookmarksElement = doc.createElement("bookmarks");
+				
+				for (Bookmark bookmark : folder.getBookmarks()) {
+					Element bookmarkElement = doc.createElement("bookmark");
+					
+					Element bookmarkDesc = doc.createElement("desc");
+					bookmarkDesc.appendChild(doc.createTextNode(bookmark.getDesc()));
+
+					Element bookmarkUrl = doc.createElement("url");
+					bookmarkUrl.appendChild(doc.createTextNode(bookmark.getUrl()));
+					
+					bookmarkElement.appendChild(bookmarkDesc);
+					bookmarkElement.appendChild(bookmarkUrl);
+					bookmarksElement.appendChild(bookmarkElement);
+					
+					System.out.println("Bookmark Desc: " + bookmark.getDesc());
+				}
+				
+				folderElement.appendChild(bookmarksElement);
+			}
+			
+			if (folder.getChildren().size() != 0) {
+				addFolderChildren(folder.getChildren(), folderElement, doc);
+			}			
+			
+			foldersElement.appendChild(folderElement);				
+		}
+		
+		parentFolderElement.appendChild(foldersElement);
 	}
 
 }

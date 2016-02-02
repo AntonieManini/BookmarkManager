@@ -44,10 +44,14 @@
 			<input type="submit" value="Export"/>
 		</form>
 		
-		<form name="importForm" action="${importUrl}" method="post" enctype="multipart/form-data">
+		<form:form name="importForm" action="${importUrl}" method="post" commandName="importOption" enctype="multipart/form-data">
 			<input type="file" name="file"/>
+			<form:select path="option">
+				<form:option value="merge">Merge</form:option>
+				<form:option value="overwrite">Overwrite</form:option>
+			</form:select>
 			<input type="submit" value="Import"/>
-		</form>		
+		</form:form>		
 	</div>
 	<div id="horizontal-line"></div>
 	<div class="container">

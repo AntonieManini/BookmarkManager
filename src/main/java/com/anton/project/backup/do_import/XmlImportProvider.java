@@ -32,7 +32,7 @@ public class XmlImportProvider implements ImportProvider {
 			
 			doc.getDocumentElement().normalize();
 			
-			NodeList folderList = doc.getElementsByTagName("folder");
+			NodeList folderList = ((Element)doc.getElementsByTagName("folders").item(0)).getChildNodes();
 			
 			for (int i = 0; i < folderList.getLength(); i++) {
 				Node folderNode = folderList.item(i);
@@ -45,29 +45,40 @@ public class XmlImportProvider implements ImportProvider {
 					Folder folder = new Folder();
 					folder.setName(folderName);
 					
-					if (element.getElementsByTagName("bookmarks").getLength() != 0) {
-						Set<Bookmark> bookmarks = new HashSet<Bookmark>();
-
-						NodeList bookmarkList = element.getElementsByTagName("bookmark");
+					NodeList childNodesList = element.getChildNodes();
+					for(int j = 0; j < childNodesList.getLength(); j++) {
+						Node childNode = childNodesList.item(j);
 						
-						for (int j = 0; j < bookmarkList.getLength(); j++) {
-							Node bookmarkNode = bookmarkList.item(j);
-							
-							if (bookmarkNode.getNodeType() == Node.ELEMENT_NODE) {
-								Element bookmarkElement = (Element) bookmarkNode;
+						if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+							Element childElement = (Element) childNode;
+							if (childElement.getTagName().equals("bookmarks")) {						
+								Set<Bookmark> bookmarks = new HashSet<Bookmark>();
+		
+								NodeList bookmarkList = childElement.getChildNodes();
 								
-								String desc = bookmarkElement.getElementsByTagName("desc").item(0).getTextContent(); 
-								String url = bookmarkElement.getElementsByTagName("url").item(0).getTextContent();
+								for (int k = 0; k < bookmarkList.getLength(); k++) {
+									Node bookmarkNode = bookmarkList.item(k);
+									
+									if (bookmarkNode.getNodeType() == Node.ELEMENT_NODE) {
+										Element bookmarkElement = (Element) bookmarkNode;
+										
+										String desc = bookmarkElement.getElementsByTagName("desc").item(0).getTextContent(); 
+										String url = bookmarkElement.getElementsByTagName("url").item(0).getTextContent();
+										
+										Bookmark bookmark = new Bookmark();
+										bookmark.setDesc(desc);
+										bookmark.setUrl(url);
+										
+										bookmarks.add(bookmark);
+									}
+								}
 								
-								Bookmark bookmark = new Bookmark();
-								bookmark.setDesc(desc);
-								bookmark.setUrl(url);
-								
-								bookmarks.add(bookmark);
+								folder.setBookmarks(bookmarks);
 							}
-						}
-						
-						folder.setBookmarks(bookmarks);
+							else if (childElement.getTagName().equals("folders")) {
+								folder.setChildren(getFolderChildren(childElement));
+							}
+						}					
 					}
 					
 					list.add(folder);
@@ -75,9 +86,70 @@ public class XmlImportProvider implements ImportProvider {
 			}
 		} 
 		catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 
+		
+		return list;
+	}
+	
+	
+	
+	private List<Folder> getFolderChildren(Element parentElement) {
+		List<Folder> list = new LinkedList<>();
+		
+		NodeList folderList = parentElement.getChildNodes();
+		
+		for (int i = 0; i < folderList.getLength(); i++) {
+			Node folderNode = folderList.item(i);
+			
+			if (folderNode.getNodeType() == Node.ELEMENT_NODE) {
+				Element element = (Element) folderNode;
+				
+				String folderName = element.getElementsByTagName("name").item(0).getTextContent();
+				
+				Folder folder = new Folder();
+				folder.setName(folderName);
+				
+				NodeList childNodesList = element.getChildNodes();
+				for(int j = 0; j < childNodesList.getLength(); j++) {
+					Node childNode = childNodesList.item(j);
+					
+					if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+						Element childElement = (Element) childNode;
+						if (childElement.getTagName().equals("bookmarks")) {						
+							Set<Bookmark> bookmarks = new HashSet<Bookmark>();
+	
+							NodeList bookmarkList = childElement.getChildNodes();
+							
+							for (int k = 0; k < bookmarkList.getLength(); k++) {
+								Node bookmarkNode = bookmarkList.item(k);
+								
+								if (bookmarkNode.getNodeType() == Node.ELEMENT_NODE) {
+									Element bookmarkElement = (Element) bookmarkNode;
+									
+									String desc = bookmarkElement.getElementsByTagName("desc").item(0).getTextContent(); 
+									String url = bookmarkElement.getElementsByTagName("url").item(0).getTextContent();
+									
+									Bookmark bookmark = new Bookmark();
+									bookmark.setDesc(desc);
+									bookmark.setUrl(url);
+									
+									bookmarks.add(bookmark);
+								}
+							}
+							
+							folder.setBookmarks(bookmarks);
+						}
+						else if (childElement.getTagName().equals("folders")) {
+							folder.setChildren(getFolderChildren(childElement));
+						}
+					}					
+				}
+				
+				list.add(folder);
+			}
+		}
 		
 		return list;
 	}

@@ -72,10 +72,16 @@ public class BookmarkDaoImpl implements BookmarkDao {
 	}
 
 	
-	public int getBookmarkByUrl(String url) {
-		TypedQuery<Bookmark> query = em.createQuery("SELECT b FROM Bookmark b WHERE b.url=:bookmarkUrl", Bookmark.class);
+	public int getBookmark(String desc, String url, int folderId) {
+		TypedQuery<Bookmark> query = em.createQuery("SELECT b FROM Bookmark b WHERE b.desc=:bookmarkDesc AND b.url=:bookmarkUrl AND b.folder=:folder", Bookmark.class);
 
+		query.setParameter("bookmarkDesc", desc);
 		query.setParameter("bookmarkUrl", url);
+		
+		Folder folder = em.find(Folder.class, folderId);
+		System.out.println("Folder: " + folder);
+		query.setParameter("folder", folder);
+
 		
 		List<Bookmark> list = query.getResultList();
 		if (list.size() != 0) {

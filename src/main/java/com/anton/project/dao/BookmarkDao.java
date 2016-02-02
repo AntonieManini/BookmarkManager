@@ -11,5 +11,5 @@ public interface BookmarkDao {
 	void delete(int id);
 	List<Bookmark> getAllObjects();
 	List<Bookmark> getAllObjects(int id);
-	int getBookmarkByUrl(String url);
+	int getBookmark(String desc, String url, int folderId);
 }

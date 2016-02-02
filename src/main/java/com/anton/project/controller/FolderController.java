@@ -2,6 +2,7 @@ package com.anton.project.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -89,6 +90,8 @@ public class FolderController {
 			
 			class Output {
 				public void printFolders(List<Folder> folders) {
+					System.out.println(folders.size());
+					
 					for (Folder f : folders) {
 						System.out.println("__" + f.getName() + "__");
 						
@@ -103,17 +106,18 @@ public class FolderController {
 				}
 			}
 			
-			new Output().printFolders(folders);
-			/*
+			//new Output().printFolders(folders);
+			
+			
 			if (importOption.getOption().equals("merge")) {
-				importService.merge(folders);
+				importService.merge(folders, -1);
 			}
 			else if (importOption.getOption().equals("overwrite")) {
-				importService.merge(folders);
+				importService.overwrite(folders);
 			}
 			else {
 				//throw exception
-			}*/
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

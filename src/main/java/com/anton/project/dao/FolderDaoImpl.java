@@ -66,13 +66,21 @@ public class FolderDaoImpl implements FolderDao {
 		query.setParameter("user", SecurityUtil.getUsername());
 		
 		List<Folder> result = (List<Folder>)query.getResultList();
+		
+		for (Folder f : result) {
+			if (f != null) {
+				System.out.println(f.getFolderId() + "  " + f.getName() + "  " + f.getUsername() + " Parent: " + (f.getParent() == null ? "null" : f.getParent().getFolderId()));
+			}
+		}
+		
 		return result;
 	}
 
 	public int getFolderByName(String name) {
-		TypedQuery<Folder> query = em.createQuery("SELECT f FROM Folder f WHERE f.name=:folderName", Folder.class);
+		TypedQuery<Folder> query = em.createQuery("SELECT f FROM Folder f WHERE f.name=:folderName AND f.username=:userName", Folder.class);
 		
 		query.setParameter("folderName", name);
+		query.setParameter("userName", SecurityUtil.getUsername());
 		
 		List<Folder> list = query.getResultList();
 		if (list.size() != 0) {

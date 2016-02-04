@@ -1,5 +1,7 @@
 package com.anton.project.security.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,5 +35,27 @@ public class UserDaoImpl implements UserDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.persist(user);
 		session.persist(userRole);
+	}
+	
+	public void deleteUser() {
+		
+	}
+
+	@Override
+	public void updateUser() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void disableUser() {
+		// TODO Auto-generated method stub
+		
 	}
 }

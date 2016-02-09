@@ -11,10 +11,11 @@
 	<meta name="_csrf_header" content="${_csrf.headerName}"/>	
 </head>
 <body>
-	<form id="" action="/admin/add" method="post">
-		<input type="text" name="nick"/>
+	<form id="" action="<c:url value="/admin/add"/>" method="post">
+		<input type="text" name="nickname"/>
 		<input type="text" name="email"/>
 		<input type="password" name="password"/>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<input type="submit" value="Add New User"/>
 	</form>
 
@@ -30,19 +31,26 @@
 		
 		<c:forEach var="user" items="${users}">
 			<tr>
-				<td>${user.nickname}</td>
-				<td>${user.email}</td>
+				<td class="nickname">${user.nickname}</td>
+				<td class="email">${user.email}</td>
 				<c:choose>
 					<c:when test="${user.enabled}">
-						<td>Active</td>
+						<td class="status">Active</td>
 					</c:when>
 					<c:otherwise>
-						<td>Frozen</td>
+						<td class="status">Frozen</td>
 					</c:otherwise>
 				</c:choose>
-				<td><button>Update</button></td>
-				<td><button>Freeze</button></td>
-				<td><button>Get rid of him!</button></td>
+				<td><button class="updateButton">Update</button></td>
+				<c:choose>
+					<c:when test="${user.enabled}">
+						<td><button class="disableButton">Freeze</button></td>
+					</c:when>
+					<c:otherwise>
+						<td><button class="disableButton">Activate</button></td>
+					</c:otherwise>
+				</c:choose>
+				<td><button class="deleteButton">Get rid of him!</button></td>
 			</tr>
 		</c:forEach>		
 	</table>

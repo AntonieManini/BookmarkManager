@@ -36,7 +36,7 @@ public class UserRole {
 	}
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="username")
+	@JoinColumn(name="email")
 	public User getUser() {
 		return user;
 	}

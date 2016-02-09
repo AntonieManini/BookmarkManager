@@ -13,9 +13,13 @@
 	<form:form name="signUpForm" action="${signUpUrl}" method="post" commandName="user">
 		<table>
 			<tr>
-				<td>User Name:</td>
-				<td><form:input type='text' path='username' /></td>
+				<td>Name:</td>
+				<td><form:input type='text' path='nickname' /></td>
 			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><form:input type='text' path='email' /></td>
+			</tr>			
 			<tr>
 				<td>Password:</td>
 				<td><form:input type='password' path='password' /></td>

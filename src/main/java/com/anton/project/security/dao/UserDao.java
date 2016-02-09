@@ -5,15 +5,15 @@ import java.util.List;
 import com.anton.project.security.domain.User;
 
 public interface UserDao {
-	User findByUserName(String username);
+	User findByEmail(String email);
 	
 	void addUser(User user, String role);
 	
-	void deleteUser();
+	void deleteUser(User user);
 	
-	void updateUser();
+	void updateUser(User user);
 	
 	List<User> getAllUsers();
 	
-	void disableUser();
+	void changeUserStatus(User user);
 }

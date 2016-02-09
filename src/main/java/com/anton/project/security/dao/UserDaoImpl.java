@@ -18,11 +18,11 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
 	private SessionFactory sessionFactory; 
 	
-	public User findByUserName(String username) {
-		Query query = sessionFactory.getCurrentSession().createQuery("FROM User u WHERE u.username=:username");
-		query.setParameter("username", username);
+	public User findByEmail(String email) {
+		Query query = sessionFactory.getCurrentSession().createQuery("FROM User u WHERE u.email=:email");
+		query.setParameter("email", email);
 		
-		return (User)query.list().get(0);
+		return query.list().size() != 0 ? (User)query.list().get(0) : null;
 	}
 
 	public void addUser(User user, String role) {
@@ -37,25 +37,24 @@ public class UserDaoImpl implements UserDao {
 		session.persist(userRole);
 	}
 	
-	public void deleteUser() {
-		
-	}
-
-	@Override
-	public void updateUser() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public List<User> getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession().createCriteria(User.class).list();
 	}
 
 	@Override
-	public void disableUser() {
-		// TODO Auto-generated method stub
-		
+	public void deleteUser(User user) {
+		sessionFactory.getCurrentSession().delete(user);;		
+	}
+
+	@Override
+	public void updateUser(User user) {
+		sessionFactory.getCurrentSession().update(user);
+	}
+
+	@Override
+	public void changeUserStatus(User user) {
+		sessionFactory.getCurrentSession().update(user);
 	}
 }

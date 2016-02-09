@@ -1,5 +1,7 @@
 package com.anton.project.security.domain;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,20 +12,32 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 @Entity
 @Table(name="USERS")
 public class User {
-	private String username;
+	private String nickname;
+	private String email;
 	private String password;
 	private boolean enabled;
 	private Set<UserRole> roles = new HashSet<UserRole>();
-	
+
 	@Id
-	public String getUsername() {
-		return username;
+	public String getEmail() {
+		return email;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	@Column
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;		
 	}
 	
 	@Column

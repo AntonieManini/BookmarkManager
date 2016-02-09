@@ -1,18 +1,20 @@
 CREATE TABLE `bookmark`.`USERS` (
-	`USERNAME` varchar(45) NOT NULL,
+	`NICKNAME` varchar(25) NOT NULL,
+	`EMAIL` varchar(45) NOT NULL,
     `PASSWORD` varchar(1024) NOT NULL,
     `ENABLED` TINYINT(1) NOT NULL,
-    PRIMARY KEY(`USERNAME`)
+    PRIMARY KEY(`EMAIL`),
+    UNIQUE KEY uni_email (`EMAIL`)
 )Engine=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `bookmark`.`USER_ROLES` (
 	`USER_ROLE_ID` int(11) NOT NULL AUTO_INCREMENT,
-    `USERNAME` varchar(45) NOT NULL,
+    `EMAIL` varchar(45) NOT NULL,
     `ROLE` varchar(45) NOT NULL,
     PRIMARY KEY(`USER_ROLE_ID`),
-    UNIQUE KEY uni_username_role (`ROLE`, `USERNAME`),
-    KEY fk_username_idx(`USERNAME`),
-    CONSTRAINT fk_username FOREIGN KEY (`USERNAME`) REFERENCES `bookmark`.`USERS`(`USERNAME`)
+    UNIQUE KEY uni_email_role (`ROLE`, `EMAIL`),
+    KEY fk_email_idx(`EMAIL`),
+    CONSTRAINT fk_email FOREIGN KEY (`EMAIL`) REFERENCES `bookmark`.`USERS`(`EMAIL`)
 )Engine=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `bookmark`.`PERSISTENT_LOGINS` (
@@ -30,7 +32,7 @@ CREATE TABLE `bookmark`.`FOLDER` (
     `USERNAME` varchar(64) NOT NULL,
 	PRIMARY KEY(`FOLDER_ID`),
 	CONSTRAINT `fk_parent_id` FOREIGN KEY(`PARENT_ID`) REFERENCES `FOLDER`(`FOLDER_ID`),
-    CONSTRAINT `fk_username2` FOREIGN KEY(`USERNAME`) REFERENCES `USERS`(`USERNAME`)
+    CONSTRAINT `fk_username` FOREIGN KEY(`USERNAME`) REFERENCES `USERS`(`EMAIL`)
 ) Engine=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `bookmark`.`BOOKMARK` (

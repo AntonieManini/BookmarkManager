@@ -58,7 +58,7 @@
 		<div id="tree-pane" class="pane">
 			<div class="tree_header">
 				<div id="folderAddForm">
-					<input class="newFolderName" type="text" name="name"/>
+					<input class="newFolderName" type="text" name="name" required pattern="[a-zA-Z0-9]+"/>
 					<input id="addFolderSubmit" type="submit" value="Add New Folder"/>
 				</div>			
 			</div>
@@ -71,8 +71,8 @@
 		<div id="list-pane" class="pane">			
 			<div class="list_header">
 				<form id="bookmarkAddForm">
-					<input id="inputDesc" type="text"/>
-					<input id="inputUrl" type="text"/>
+					<input id="inputDesc" type="text" required/>
+					<input id="inputUrl" type="url" required/>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					<input type="submit" value="Add New Bookmark"/>
 				</form>			
@@ -84,7 +84,7 @@
 		</div>
 	</div>
 	
-	<script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/folders.js"/>"></script>
 	<script src="<c:url value="/resources/js/bookmarks.js"/>"></script>
 </body>

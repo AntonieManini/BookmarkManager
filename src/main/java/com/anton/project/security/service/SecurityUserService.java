@@ -29,7 +29,7 @@ public class SecurityUserService implements UserDetailsService {
 	
 	
 	public UserDetails loadUserByUsername(String username) {
-		com.anton.project.security.domain.User user = userDao.findByUserName(username);
+		com.anton.project.security.domain.User user = userDao.findByEmail(username);
 	
 		List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
 		
@@ -38,7 +38,7 @@ public class SecurityUserService implements UserDetailsService {
 
 
 	private User buildUserForAuthentication(com.anton.project.security.domain.User user, List<GrantedAuthority> authorities) {
-		return new User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true, authorities);
+		return new User(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, authorities);
 	}
 
 

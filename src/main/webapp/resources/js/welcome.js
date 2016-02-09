@@ -1,21 +1,32 @@
 $(document).ready(function() {
-	$("#signUpLink").click(function() {
-		$("#signUpLink").fadeOut(200)
-		$("#loginForm").fadeOut(200);
+	$('#question, #answer, #paragraph1, #paragraph2, #paragraph3').each(function(i) {
+		$(this).hide();
+	});
 	
-		$("#signUpLink").remove();
-		$("#loginForm").remove();
+	$('#question, #answer, #paragraph1, #paragraph2, #paragraph3').each(function(i) {
+		$(this).delay(i * 1000).fadeIn(2000);
+	});
+	
+	$("#signUpLink").click(function() {
+		$("#signUpLink").fadeOut(1000).delay(1000).remove();
+		$("#loginForm").fadeOut(1000).delay(1000).remove();
 		
 		var csrf_header = $("meta[name='_csrf_header']").attr("content");
 		var csrf_token = $("meta[name='_csrf']").attr("content");
 		
 		$("#user-management").append(			
-			$("<form/>", {id: "registerForm", action: "./register", method: "POST"}).append(
+			$("<form/>", {id: "registerForm"}).append(
+				$("<label/>").attr("for", "nickname").html("Username: "),
 				$("<input/>", {id: "nickname", type: "text", name: "nickname"}),
+				$("<br/>"),
+				$("<label/>").attr("for", "email").html("Email: "),
 				$("<input/>", {id: "email", type: "text", name: "email"}),
+				$("<br/>"),
+				$("<label/>").attr("for", "password").html("Password: "),
 				$("<input/>", {id: "password", type: "password", name: "password"}),
+				$("<br/>"),
 				$("<input/>", {type: "submit", value: "Sign Up!"})
-			)
+			).hide().fadeIn(2000)
 		);
 		
 		$("#registerForm").validate({

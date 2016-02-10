@@ -25,7 +25,7 @@
 					</div>
 					<div id="answer-container">
 						<div id="answer">
-							<p style="font-size: 46px;">We have an answer for you: <b><a href="#">BURITO</a></b></p>
+							<p>We have an answer for you: <b><a href="#">BURITO</a></b></p>
 						</div>
 					</div>
 				</div>
@@ -62,16 +62,14 @@
 					</div>
 					<div id="form-container">
 						<form id="loginForm" action="<c:url value='/login' />" method="post">
-							<div>
-								<label for="email"></label>
+							<div class="form-group">
 								<input type='text' name='email' placeholder="Enter your email">
 							</div>
-							<div>
-								<label for="password"></label>
+							<div class="form-group">
 								<input type='password' name='password' placeholder="Enter your password"/>
 							</div>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-							<div>
+							<div class="form-group">
 								<input name="submit" type="submit" value="Sign In" />
 							</div>
 						</form>

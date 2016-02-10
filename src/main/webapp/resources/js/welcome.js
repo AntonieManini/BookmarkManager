@@ -8,27 +8,25 @@ $(document).ready(function() {
 	});
 	
 	$("#signUpLink").click(function() {
-		$("#signUpLink").fadeOut(1000).delay(1000).remove();
+		$("#link-container").fadeOut(1000).delay(1000).remove();
 		$("#loginForm").fadeOut(1000).delay(1000).remove();
 		
 		var csrf_header = $("meta[name='_csrf_header']").attr("content");
 		var csrf_token = $("meta[name='_csrf']").attr("content");
 		
+		$('#form-container').css("height", "32vh");
 		$("#form-container").append(			
 			$("<form/>", {id: "registerForm"}).append(
-				$("<div/>").append(
-					$("<label/>").attr("for", "nickname"),
+				$("<div/>", {class: "form-group"}).append(
 					$("<input/>", {id: "nickname", type: "text", name: "nickname", placeholder: "Pick a username"})
 				),
-				$("<div/>").append(
-					$("<label/>").attr("for", "email"),
+				$("<div/>", {class: "form-group"}).append(
 					$("<input/>", {id: "email", type: "text", name: "email", placeholder: "Your email"})
 				),
-				$("<div/>").append(
-					$("<label/>").attr("for", "password"),
+				$("<div/>", {class: "form-group"}).append(
 					$("<input/>", {id: "password", type: "password", name: "password", placeholder: "Create a password"})
 				),
-				$("<div/>").append(
+				$("<div/>", {class: "form-group"}).append(
 					$("<input/>", {type: "submit", value: "Sign Up!"})
 				)
 			).hide().fadeIn(2000)

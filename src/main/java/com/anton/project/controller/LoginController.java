@@ -29,11 +29,11 @@ public class LoginController {
 
 		ModelAndView model = new ModelAndView();
 		if (error != null) {
-			model.addObject("error", "Please verify your email and password");
+			model.addObject("error", "Please verify your info");
 		}
 
 		if (logout != null) {
-			model.addObject("msg", "You've been logged out successfully.");
+			model.addObject("msg", "You've been logged out");
 		}
 		model.setViewName("welcome");
 

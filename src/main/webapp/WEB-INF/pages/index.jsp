@@ -31,7 +31,8 @@
 					
 					<c:if test="${pageContext.request.userPrincipal.name != null }">
 						<div class="authenticated-user">
-							<h3 class="authenticated-user">Hello ${pageContext.request.userPrincipal.name}!</h3>
+<!--							<h3 class="authenticated-user">Hello ${pageContext.request.userPrincipal.name}!</h3>-->
+							<p class="authenticated-user">Hello, ${nickname}!</p>
 							<button class="authenticated-user" id="logoutButton" onclick="logoutForm()">Logout</button>
 						</div>
 					</c:if>

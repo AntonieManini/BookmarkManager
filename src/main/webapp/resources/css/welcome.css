@@ -94,7 +94,7 @@ p, div {
 }
 
 #user-management {
-	height: 250px;
+	height: 20%;
 	width: 30%;
 	float: right;
 	background-color: #ffffff;	
@@ -109,6 +109,29 @@ p, div {
 
 #footer {
 	height: 5%;
+}
+
+#message-container {
+	width: 80%;
+	height: 50px;
+	
+	-webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+    -moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+    box-sizing: border-box;		
+}
+
+.error-message {
+	width: 100%;
+	height: 100%;
+	color: #ffffff;
+	background-color: red;
+}
+
+.logout-message {
+	width: 100%;
+	height: 100%;
+	color: #ffffff;
+	background-color: green;	
 }
 
 #link-container {

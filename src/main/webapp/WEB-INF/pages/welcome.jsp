@@ -46,6 +46,20 @@
 			
 			<div id="user-management">
 				<div id="content-container">
+					<div id="message-container">
+						<c:choose>
+							<c:when test="${not empty error}">
+								<div class="error-message">
+									<p>${error}</p>
+								</div>
+							</c:when>
+							<c:when test="${not empty msg}">
+								<div class="logout-message">
+									<p>${msg}</p>
+								</div>							
+							</c:when>
+						</c:choose>
+					</div>
 					<div id="form-container">
 						<form id="loginForm" action="<c:url value='/login' />" method="post">
 							<div>

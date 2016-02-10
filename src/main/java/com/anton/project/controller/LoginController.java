@@ -29,7 +29,7 @@ public class LoginController {
 
 		ModelAndView model = new ModelAndView();
 		if (error != null) {
-			model.addObject("error", "Invalid");
+			model.addObject("error", "Please verify your email and password");
 		}
 
 		if (logout != null) {

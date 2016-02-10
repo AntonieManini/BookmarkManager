@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.anton.project.backup.do_export.ExportFileType;
@@ -25,6 +27,9 @@ import com.anton.project.backup.do_import.ImportManager;
 import com.anton.project.backup.do_import.ImportOption;
 import com.anton.project.domain.Bookmark;
 import com.anton.project.domain.Folder;
+import com.anton.project.security.domain.User;
+import com.anton.project.security.service.UserService;
+import com.anton.project.security.util.SecurityUtil;
 import com.anton.project.service.FolderService;
 import com.anton.project.service.ImportService;
 import com.anton.project.util.TitleExtractor;
@@ -36,6 +41,9 @@ public class FolderController {
 	
 	@Autowired
 	private ImportService importService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value="/folders/add", method=RequestMethod.POST)
 	public @ResponseBody void addFolder(@RequestParam String name, @RequestParam int parentId) {
@@ -64,7 +72,14 @@ public class FolderController {
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public ModelAndView getAllFolders() {
+	public ModelAndView getAllFolders(HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		System.out.println(SecurityUtil.getUsername());
+		User user = userService.findByEmail(SecurityUtil.getUsername());		
+		if (user != null) {
+			session.setAttribute("nickname", user.getNickname());
+		}
+		
 		ModelAndView model = new ModelAndView("index");
 		
 		List<Folder> list = folderService.getAllObjects();

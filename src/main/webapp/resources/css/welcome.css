@@ -98,7 +98,8 @@ p, div {
 	width: 30%;
 	float: right;
 	background-color: #f2f2f2;
-	/*border-left: solid 4px #f2f2f2;*/
+	border-left: solid 4px #f2f2f2;
+	margin-left: -4px;
 }
 
 #content-container {
@@ -122,7 +123,8 @@ p, div {
 	margin-right: auto;
 	font-size: 3vh;
 	margin-bottom: 0px;
-	padding-top: 0px;
+	padding-top: 2vh;
+	padding-bottom: 2vh;
 	text-align: center;
 	
 	-webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
@@ -135,6 +137,7 @@ p, div {
 	height: 100%;
 	color: #ffffff;
 	background-color: red;
+	border-radius: 10px;
 }
 
 .logout-message {
@@ -142,6 +145,7 @@ p, div {
 	height: 100%;
 	color: #ffffff;
 	background-color: green;	
+	border-radius: 10px;
 }
 
 #link-container {

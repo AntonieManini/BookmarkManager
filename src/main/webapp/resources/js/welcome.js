@@ -14,18 +14,23 @@ $(document).ready(function() {
 		var csrf_header = $("meta[name='_csrf_header']").attr("content");
 		var csrf_token = $("meta[name='_csrf']").attr("content");
 		
-		$("#user-management").append(			
+		$("#form-container").append(			
 			$("<form/>", {id: "registerForm"}).append(
-				$("<label/>").attr("for", "nickname").html("Username: "),
-				$("<input/>", {id: "nickname", type: "text", name: "nickname"}),
-				$("<br/>"),
-				$("<label/>").attr("for", "email").html("Email: "),
-				$("<input/>", {id: "email", type: "text", name: "email"}),
-				$("<br/>"),
-				$("<label/>").attr("for", "password").html("Password: "),
-				$("<input/>", {id: "password", type: "password", name: "password"}),
-				$("<br/>"),
-				$("<input/>", {type: "submit", value: "Sign Up!"})
+				$("<div/>").append(
+					$("<label/>").attr("for", "nickname"),
+					$("<input/>", {id: "nickname", type: "text", name: "nickname", placeholder: "Pick a username"})
+				),
+				$("<div/>").append(
+					$("<label/>").attr("for", "email"),
+					$("<input/>", {id: "email", type: "text", name: "email", placeholder: "Your email"})
+				),
+				$("<div/>").append(
+					$("<label/>").attr("for", "password"),
+					$("<input/>", {id: "password", type: "password", name: "password", placeholder: "Create a password"})
+				),
+				$("<div/>").append(
+					$("<input/>", {type: "submit", value: "Sign Up!"})
+				)
 			).hide().fadeIn(2000)
 		);
 		

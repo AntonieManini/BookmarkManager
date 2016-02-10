@@ -21,13 +21,8 @@ import com.anton.project.security.service.UserService;
 public class LoginController {
 	@Autowired
 	private UserService userService;
-
-	@RequestMapping(value="/welcome", method=RequestMethod.GET)
-	public String welcome() {
-		return "welcome";
-	}
 	
-	@RequestMapping(value = "/login", method=RequestMethod.GET)
+	@RequestMapping(value = "/welcome", method=RequestMethod.GET)
 	public ModelAndView login(
 			@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
@@ -40,7 +35,7 @@ public class LoginController {
 		if (logout != null) {
 			model.addObject("msg", "You've been logged out successfully.");
 		}
-		model.setViewName("login");
+		model.setViewName("welcome");
 
 		return model;
 	}

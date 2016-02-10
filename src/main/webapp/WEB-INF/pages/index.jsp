@@ -7,54 +7,61 @@
 <html>
 <head>
 	<link rel="stylesheet" href="<c:url value="/resources/css/main.css"/>">	
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	
 	<meta name="_csrf" content="${_csrf.token}"/>
 	<meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
 <body>
-	<sec:authorize access="hasRole('ROLE_USER')">
-		<c:url var="logoutUrl" value="/logout"/>
-		
-		<form id="logoutForm" action="${logoutUrl}" method="post">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-		</form>
-		
-		<script>
-			function logoutForm() {
-				document.getElementById("logoutForm").submit();
-			}
-		</script>
-		
-		<c:if test="${pageContext.request.userPrincipal.name != null }">
-			<div class="authenticated-user">
-				<h3 class="authenticated-user">Hello ${pageContext.request.userPrincipal.name}!</h3>
-				<button class="authenticated-user" id="logoutButton" onclick="logoutForm()">Logout</button>
+	<div id="wrapper">
+		<div class="header">
+			<div id="user-info">
+				<sec:authorize access="hasRole('ROLE_USER')">
+					<c:url var="logoutUrl" value="/logout"/>
+					
+					<form id="logoutForm" action="${logoutUrl}" method="post">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					</form>
+					
+					<script>
+						function logoutForm() {
+							document.getElementById("logoutForm").submit();
+						}
+					</script>
+					
+					<c:if test="${pageContext.request.userPrincipal.name != null }">
+						<div class="authenticated-user">
+							<h3 class="authenticated-user">Hello ${pageContext.request.userPrincipal.name}!</h3>
+							<button class="authenticated-user" id="logoutButton" onclick="logoutForm()">Logout</button>
+						</div>
+					</c:if>
+					
+				</sec:authorize>
 			</div>
-		</c:if>
-		
-	</sec:authorize>
-	
-	<c:url value="/folders/add" var="addFolderUrl"/>	
-	<c:url value="/folders/export" var="exportUrl"/>
-	<c:url value="/folders/import" var="importUrl"/>
+			<div id="export-import">	
+				<c:url value="/folders/add" var="addFolderUrl"/>	
+				<c:url value="/folders/export" var="exportUrl"/>
+				<c:url value="/folders/import" var="importUrl"/>
 
-	<div class="header">
-		<form name="exportForm" action="${exportUrl}" method="get">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="submit" value="Export"/>
-		</form>
-		
-		<form:form name="importForm" action="${importUrl}" method="post" commandName="importOption" enctype="multipart/form-data">
-			<input type="file" name="file"/>
-			<form:select path="option">
-				<form:option value="merge">Merge</form:option>
-				<form:option value="overwrite">Overwrite</form:option>
-			</form:select>
-			<input type="submit" value="Import"/>
-		</form:form>		
-	</div>
-	<div id="horizontal-line"></div>
-	<div class="container">
+				<div class="header">
+					<form name="exportForm" action="${exportUrl}" method="get">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<input type="submit" value="Export"/>
+					</form>
+					
+					<form:form name="importForm" action="${importUrl}" method="post" commandName="importOption" enctype="multipart/form-data">
+						<input type="file" name="file"/>
+						<form:select path="option">
+							<form:option value="merge">Merge</form:option>
+							<form:option value="overwrite">Overwrite</form:option>
+						</form:select>
+						<input type="submit" value="Import"/>
+					</form:form>		
+				</div>
+			</div>
+		</div>
+		<div id="horizontal-line"></div>
+		<div class="container">
 		<div id="tree-pane" class="pane">
 			<div class="tree_header">
 				<div id="folderAddForm">
@@ -83,7 +90,7 @@
 			</div>		
 		</div>
 	</div>
-	
+	</div>
 	<script src="<c:url value="/resources/js/jquery.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/folders.js"/>"></script>
 	<script src="<c:url value="/resources/js/bookmarks.js"/>"></script>

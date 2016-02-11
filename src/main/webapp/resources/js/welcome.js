@@ -51,22 +51,6 @@ $(document).ready(function() {
 				nickname: "Please enter an alphanumeric Name",
 				password: "Please enter min 6 length password"
 			},
-			onfocusout: function(element, event) {
-				if (element.name == "email") {
-					console.log("you can check now");
-/*				
-					var _email_ = $("#registerForm").find("#email").prop("value");
-					
-					$.ajax({
-						type: "POST",
-						url: "./register/validate",
-						data: {email: _email_},
-						success: function() {
-						}
-					});*/
-				}
-				else return true;
-			},
 			submitHandler: function(form) {
 				var csrf_header = $("meta[name='_csrf_header']").attr("content");
 				var csrf_token = $("meta[name='_csrf']").attr("content");
@@ -90,10 +74,6 @@ $(document).ready(function() {
 							var _email_ = $("#registerForm").find("#email").prop("value");
 							var _password_ = $("#registerForm").find("#password").prop("value");
 							
-							console.log(_nickname_);
-							console.log(_email_);
-							console.log(_password_);
-							
 							$.ajax({
 								type: "POST",
 								url: "./register",
@@ -102,7 +82,36 @@ $(document).ready(function() {
 									xhr.setRequestHeader(csrf_header, csrf_token);
 								},													
 								success: function() {
-									alert("Successfully Added a User!");
+									$("#message-container").append(
+										$("<div/>",  {class: "logout-message"}).append(
+											$("<p/>").html("Signed Up successfully")
+										)
+									);
+									$("#message-container").find("div").delay(5000).fadeOut(2000, function() {
+										$(this).remove();
+									});
+									
+									$("#registerForm").remove();
+									$('#form-container').css("height", "24vh");
+									$("#form-container").append(			
+										$("<form/>", {id: "loginForm"}).append(
+											$("<div/>", {class: "form-group"}).append(
+												$("<input/>", {id: "email", type: "text", name: "email", placeholder: "Enter your email"})
+											),
+											$("<div/>", {class: "form-group"}).append(
+												$("<input/>", {id: "password", type: "password", name: "password", placeholder: "Enter your password"})
+											),
+											$("<div/>", {class: "form-group"}).append(
+												$("<input/>", {type: "submit", value: "Sign In"})
+											)
+										).hide().fadeIn(2000)
+									);
+									
+									$("#content-container").append(
+										$("<div/>", {id: "link-container"}).append(
+											$("<button/>", {id: "signUpLink"}).html("Sign Up")
+										)
+									).hide().fadeIn(2000);
 								},
 								error: function() {
 									alert("Error!");

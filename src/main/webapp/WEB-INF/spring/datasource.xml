@@ -7,10 +7,10 @@
 
 	<context:property-placeholder location="/WEB-INF/config/database.properties"/>
 	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="${database.driver}"/>
-		<property name="url" value="${database.url}"/>
-		<property name="username" value="${database.username}"/>
+		<property name="url" value="jdbc:postgresql://ec2-54-225-199-245.compute-1.amazonaws.com:5432/dpa1rti2ha71s?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
+	 	<property name="username" value="${database.username}"/>
 		<property name="password" value="${database.password}"/>
 	</bean>
 

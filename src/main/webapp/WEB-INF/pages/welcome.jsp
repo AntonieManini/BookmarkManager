@@ -61,7 +61,7 @@
 						</c:choose>
 					</div>
 					<div id="form-container">
-						<form id="loginForm"><!-- action="<c:url value='/login' />" method="post">-->
+						<form id="loginForm" action="<c:url value='/login' />" method="post">
 							<div class="form-group">							
 								<input id="email" type='text' name='email' placeholder="Enter your email">
 							</div>

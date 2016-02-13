@@ -18,7 +18,9 @@ $(document).ready(function() {
 		});
 	});
 	
-	$("#bookmarkAddForm").on("submit", function() {
+	$("#bookmarkAddForm").on("submit", function(event) {
+		event.target.checkValidity();
+		
 		var csrf_header = $("meta[name='_csrf_header']").attr("content");
 		var csrf_token = $("meta[name='_csrf']").attr("content");
 		var _desc_ = $("#bookmarkAddForm").find("#inputDesc").prop("value");

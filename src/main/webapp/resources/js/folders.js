@@ -1,5 +1,7 @@
 $(document).ready(function() {
-	$("#addFolderSubmit").on("click", function() {
+	$("#folderAddForm").on("submit", function(event) {
+		event.target.checkValidity();
+		
 		var _name_ = $("#folderAddForm").find(".newFolderName").prop("value");		
 		var csrf_header = $("meta[name='_csrf_header']").attr("content");
 		var csrf_token = $("meta[name='_csrf']").attr("content");
@@ -15,6 +17,8 @@ $(document).ready(function() {
 				window.location.reload();
 			}
 		});
+		
+		return false;
 	});
 	
 	$(".editButton").click(function() {

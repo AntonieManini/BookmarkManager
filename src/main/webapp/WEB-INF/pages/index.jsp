@@ -65,10 +65,10 @@
 		<div class="container">
 		<div id="tree-pane" class="pane">
 			<div class="tree_header">
-				<div id="folderAddForm">
+				<form id="folderAddForm">
 					<input class="newFolderName" type="text" name="name" required pattern="[a-zA-Z0-9]+"/>
-					<input id="addFolderSubmit" type="submit" value="Add New Folder"/>
-				</div>			
+					<input type="submit" value="Add New Folder"/>
+				</form>			
 			</div>
 			<div class="tree_content">
 				<ul>

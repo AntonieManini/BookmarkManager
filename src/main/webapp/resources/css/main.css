@@ -65,6 +65,10 @@ form {
 	list-style-type: none;
 }
 
+.current-folder {
+	background-color: rgba(153, 204, 255, 0.5);
+}
+
 .authenticated-user {
 	display: inline;
 }
@@ -81,3 +85,33 @@ form {
 	width: 500px;
 	height: 100%;
 }
+
+button.editButton {
+	width: 30px;
+	height: 30px;
+	border: 0px;
+	background-color: #ffffff;
+	background-image: url('../img/edit.png');
+	background-size: 20px 20px;
+	background-repeat: no-repeat;	
+}
+
+button.deleteButton {
+	width: 30px;
+	height: 30px;
+	border: 0px;
+	background-image: url('../img/remove.png');
+	background-size: 20px 20px;
+	background-repeat: no-repeat;	
+}
+
+button.addSubFolderButton {
+	width: 30px;
+	height: 30px;
+	border: 0px;
+	background-color: #ffffff;
+	background-image: url('../img/add.png');
+	background-size: 20px 20px;
+	background-repeat: no-repeat;
+}
+

@@ -103,7 +103,7 @@ p, div {
 }
 
 #content-container {
-	height: 40vh;
+	height: 40h;
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
@@ -148,6 +148,22 @@ p, div {
 	border-radius: 10px;
 }
 
+label.invalid {
+	font-size: 2vh;
+	font-weight: bold;
+	color: #e60000;
+}
+
+input.invalid {
+	border: 0.4vh solid #e60000;
+	border-radius: 1vh;
+}
+
+.valid {
+	border: 0.4vh solid #33cc33;
+	border-radius: 1vh;
+}
+
 #link-container {
 	height: 8vh;
 	width: 80%;
@@ -166,8 +182,8 @@ p, div {
 	height: 90%;
 	font-size: 3vh;
 	width: 100%;
-	border: 1px solid #f2f2f2;
-	border-radius: 5px;
+	border: 0.4vh solid #f2f2f2;
+	border-radius: 1vh;
 }
 
 #form-container {
@@ -185,12 +201,16 @@ p, div {
 	height: 8vh;
 }
 
+.form-group-invalid {
+	height: 10vh;
+}
+
 input {
-	height: 90%;
+	height: 7.2vh;
 	font-size: 3vh;
 	width: 100%;
-	border: 1px solid #f2f2f2;
-	border-radius: 5px;
+	border: 0.4vh solid #f2f2f2;
+	border-radius: 1vh;
 	
 	-webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
     -moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */

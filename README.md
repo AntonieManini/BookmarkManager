@@ -4,4 +4,5 @@ To-do:<br/>
 validation;<br/>
 folder img;<br/>
 glyphicons;<br/>
-deploy to heroku;
+deploy to heroku;<br/>
+polish the code;

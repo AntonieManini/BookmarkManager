@@ -61,12 +61,12 @@
 						</c:choose>
 					</div>
 					<div id="form-container">
-						<form id="loginForm" action="<c:url value='/login' />" method="post">
+						<form id="loginForm"><!-- action="<c:url value='/login' />" method="post">-->
 							<div class="form-group">							
-								<input type='text' name='email' placeholder="Enter your email">
+								<input id="email" type='text' name='email' placeholder="Enter your email">
 							</div>
 							<div class="form-group">
-								<input type='password' name='password' placeholder="Enter your password"/>
+								<input id="password" type='password' name='password' placeholder="Enter your password"/>
 							</div>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 							<div class="form-group">

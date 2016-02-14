@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div id="wrapper">
-		<div class="header">
+		<div id="header">
 			<div id="user-info">
 				<sec:authorize access="hasRole('ROLE_USER')">
 					<c:url var="logoutUrl" value="/logout"/>
@@ -32,8 +32,8 @@
 					<c:if test="${pageContext.request.userPrincipal.name != null }">
 						<div class="authenticated-user">
 <!--							<h3 class="authenticated-user">Hello ${pageContext.request.userPrincipal.name}!</h3>-->
-							<p class="authenticated-user">Hello, ${nickname}!</p>
-							<button class="authenticated-user" id="logoutButton" onclick="logoutForm()">Logout</button>
+							<p>Hello, ${nickname}!</p>
+							<button id="logoutButton" onclick="logoutForm()">Logout</button>
 						</div>
 					</c:if>
 					
@@ -44,7 +44,7 @@
 				<c:url value="/folders/export" var="exportUrl"/>
 				<c:url value="/folders/import" var="importUrl"/>
 
-				<div class="header">
+				<div class="export-import-content">
 					<form name="exportForm" action="${exportUrl}" method="get">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						<input type="submit" value="Export"/>
@@ -60,37 +60,41 @@
 					</form:form>		
 				</div>
 			</div>
-		</div>
-		<div id="horizontal-line"></div>
-		<div class="container">
-		<div id="tree-pane" class="pane">
-			<div class="tree_header">
-				<div id="folderAddForm">
-					<input class="newFolderName" type="text" name="name" required pattern="[a-zA-Z0-9]+"/>
-					<input id="addFolderSubmit" type="submit" value="Add New Folder"/>
-				</div>			
+		</div>		
+		<div id="container">
+			<div id="tree-pane" class="pane">
+				<div class="tree_header">
+				<form id="folderAddForm">
+					<input class="newFolderName" type="text" name="name" 
+						required pattern="[a-zA-Z0-9]+"
+						oninvalid="this.setCustomValidity('Enter Alphanumeric Folder Name')"
+						onchange="this.setCustomValidity('')"  />						
+					<input type="submit" value="Add New Folder"/>
+				</form>			
 			</div>
-			<div class="tree_content">
+				<div class="tree_content">
 				<ul>
 					<custom:folderTree list="${folders}"></custom:folderTree>
 				</ul>			
 			</div>
-		</div>		
-		<div id="list-pane" class="pane">			
-			<div class="list_header">
-				<form id="bookmarkAddForm">
-					<input id="inputDesc" type="text" required/>
-					<input id="inputUrl" type="url" required/>
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-					<input type="submit" value="Add New Bookmark"/>
-				</form>			
-			</div>
-			<div class="list_content">
-				<table>
-				</table>
 			</div>		
+			<div id="list-pane" class="pane">			
+				<div class="list_header">
+					<form id="bookmarkAddForm">
+						<input id="inputDesc" type="text" required/>
+						<input id="inputUrl" type="url" required
+							oninvalid="this.setCustomValidity('Should start with http://')"
+							oninput="setCustomValidity('')"  />
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<input type="submit" value="Add New Bookmark"/>
+					</form>			
+				</div>
+				<div class="list_content">
+					<table>
+					</table>
+				</div>		
+			</div>
 		</div>
-	</div>
 	</div>
 	<script src="<c:url value="/resources/js/jquery.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/folders.js"/>"></script>

@@ -7,6 +7,43 @@ $(document).ready(function() {
 		$(this).delay(i * 1000).fadeIn(2000);
 	});
 	
+	$("#loginForm").validate({
+		rules: {
+			email: {
+				required: true,
+				email: true
+			},
+			password: {
+				required: true,
+				minlength: 6
+			}
+		},
+		errorClass: "invalid",
+		validClass: "valid",
+		errorPlacement: function(error, element){
+			error.insertBefore(element);
+			/*element.before(error)*/
+		},
+		highlight: function(element, errorClass, validClass) {			
+			$(element).addClass(errorClass).removeClass(validClass);
+			var n = this.numberOfInvalids();
+			$("#form-container").css("height", 24 + 2*n + "vh");
+			$(element).parent("div").removeClass("form-group").addClass("form-group-invalid");
+		},
+		unhighlight: function(element, errorClass, validClass) {			
+			$(element).removeClass(errorClass).addClass(validClass);
+			var n = this.numberOfInvalids();
+			$("#form-container").css("height", 24 + 2*n + "vh");
+			$(element).parent("div").removeClass("form-group-invalid").addClass("form-group");
+		},
+		submitHandler: function(form) {
+			form.on("submit", function(event) {
+				event.preventDefault();
+				return false;
+			});
+		}
+	});
+	
 	$("#signUpLink").click(function() {
 		$("#link-container").fadeOut(1000).delay(1000).remove();
 		$("#loginForm").fadeOut(1000).delay(1000).remove();
@@ -14,7 +51,7 @@ $(document).ready(function() {
 		var csrf_header = $("meta[name='_csrf_header']").attr("content");
 		var csrf_token = $("meta[name='_csrf']").attr("content");
 		
-		$('#form-container').css("height", "32vh");
+		$('#form-container').css("height", "38vh");
 		$("#form-container").append(			
 			$("<form/>", {id: "registerForm"}).append(
 				$("<div/>", {class: "form-group"}).append(
@@ -31,6 +68,7 @@ $(document).ready(function() {
 				)
 			).hide().fadeIn(2000)
 		);
+		
 		
 		$("#registerForm").validate({
 			rules: {
@@ -51,6 +89,20 @@ $(document).ready(function() {
 				nickname: "Please enter an alphanumeric Name",
 				password: "Please enter min 6 length password"
 			},
+			errorClass: "invalid",
+			validClass: "valid",
+			errorPlacement: function(error, element){
+				error.insertBefore(element);
+				/*element.before(error)*/
+			},
+			highlight: function(element, errorClass, validClass) {			
+			    $(element).addClass(errorClass).removeClass(validClass);
+				$(element).parent("div").removeClass("form-group").addClass("form-group-invalid");
+			},
+			unhighlight: function(element, errorClass, validClass) {			
+				$(element).removeClass(errorClass).addClass(validClass);
+				$(element).parent("div").removeClass("form-group-invalid").addClass("form-group");
+			},			
 			submitHandler: function(form) {
 				var csrf_header = $("meta[name='_csrf_header']").attr("content");
 				var csrf_token = $("meta[name='_csrf']").attr("content");

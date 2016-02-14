@@ -1,5 +1,26 @@
 $(document).ready(function() {
-	$("#addFolderSubmit").on("click", function() {
+	$(".content").on("mouseover", function() {
+		if (!$(this).hasClass("current-folder")) {
+			$(this).addClass("mouseover");
+		}
+		$(this).find(".editButton").show();
+		$(this).find(".deleteButton").show();
+		$(this).find(".addSubFolderButton").show();
+	});
+	
+	$(".content").on("mouseout", function() {
+		if (!$(this).hasClass("current-folder")) {
+			$(this).removeClass("mouseover");
+		}
+		$(this).find(".editButton").hide();
+		$(this).find(".deleteButton").hide();
+		$(this).find(".addSubFolderButton").hide();
+	});
+	
+	
+	$("#folderAddForm").on("submit", function(event) {
+		event.target.checkValidity();
+		
 		var _name_ = $("#folderAddForm").find(".newFolderName").prop("value");		
 		var csrf_header = $("meta[name='_csrf_header']").attr("content");
 		var csrf_token = $("meta[name='_csrf']").attr("content");
@@ -12,16 +33,19 @@ $(document).ready(function() {
 				xhr.setRequestHeader(csrf_header, csrf_token);
 			},
 			success: function() {
+				$("#folderAddForm").trigger("reset");
 				window.location.reload();
 			}
 		});
+		
+		return false;
 	});
 	
 	$(".editButton").click(function() {
-		var row = $(this).parent('li');		
+		var row = $(this).parent('div');		
 		var $pointer = $(row).find(".folder_id");
 		
-		if ($(this).html() == "Edit") {
+		if ($(this).hasClass("editButton")) {			
 			var folder_name = $(row).find(".folder_name").html();
 			$(row).find(".folder_name").remove();
 			
@@ -52,13 +76,12 @@ $(document).ready(function() {
 			$(row).find("a").html(folder_name);
 		}
 		
-		$(this).html($(this).html() == "Edit" ? "Update" : "Edit");
-		
+		$(this).toggleClass("editButton updateButton");
 	});
 	
 	$(".deleteButton").click(function() {
-		var folder_id = $(this).parent("li").find(".folder_id").prop("value");
-		var row = $(this).parent("li");
+		var folder_id = $(this).parent("div").find(".folder_id").prop("value");
+		var row = $(this).parent("div");
 		var csrf_header = $("meta[name='_csrf_header']").attr("content");
 		var csrf_token = $("meta[name='_csrf']").attr("content");
 		
@@ -71,13 +94,13 @@ $(document).ready(function() {
 				xhr.setRequestHeader(csrf_header, csrf_token);
 			},			
 			success: function() {
-				$(row).remove();
+				$(row).parent("li").remove();
 			}
 		});
 	});
 	
 	$(".addSubFolderButton").click(function() {
-		var row = $(this).parent("li");
+		var row = $(this).parent("div").parent("li");
 		
 		$(row).addClass("parent");
 		
@@ -116,7 +139,10 @@ $(document).ready(function() {
 	});
 	
 	$("a.folder_name").click(function() {
-		var folder_id = $(this).parent("li").find(".folder_id").prop("value");
+		$(".tree_content").find(".current-folder").removeClass("current-folder");
+		
+		$(this).parent("div").addClass("current-folder").removeClass("mouseover");
+		var folder_id = $(this).parent("div").find(".folder_id").prop("value");
 		
 		$("#bookmarkAddForm").show();
 		getBookmarks(folder_id);

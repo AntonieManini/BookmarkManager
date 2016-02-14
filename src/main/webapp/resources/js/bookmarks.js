@@ -35,8 +35,7 @@ $(document).ready(function() {
 				xhr.setRequestHeader(csrf_header, csrf_token);
 			},
 			success: function() {
-				$("#bookmarkAddForm").find("#inputDesc").prop("value", "");
-				$("#bookmarkAddForm").find("#inputUrl").prop("value", "");
+				$("#bookmarkAddForm").trigger("reset");
 
 				getBookmarks(folderId);
 			}
@@ -67,17 +66,20 @@ function getBookmarks(folder_id) {
 							$("<input/>", {class: "bookmark_id", type: "hidden", value: b.bookmarkId})
 						),
 						$("<td/>").append(
+							$("<a/>", {class: "bookmark_url", href: b.url, target: "_blank"}).html("Go")
+						),						
+						$("<td/>").append(
 							$("<p/>", {class: "bookmark_desc"}).html(b.desc)
 						),
 						$("<td/>").append(
-							$("<a/>", {class: "bookmark_url", href: "http://" + b.url, target: "_blank"}).html("Link")
+							$("<button/>", {class: "editButton"})
 						),
 						$("<td/>").append(
-							$("<button/>", {class: "editButton"}).html("Edit")
+							$("<button/>", {class: "deleteButton"})
 						),
 						$("<td/>").append(
-							$("<button/>", {class: "deleteButton"}).html("Delete")
-						)
+							$("<p/>", {class: "bookmark_url_p"}).html(b.url)
+						)						
 					)
 				);
 			}
@@ -88,7 +90,7 @@ function getBookmarks(folder_id) {
 				var $desc_column = $(row).find(".bookmark_desc").parents("td");
 				var $url_column = $(row).find(".bookmark_url").parents("td");
 				
-				if ($(this).html() == "Edit") {
+				if ($(this).hasClass("editButton")) {
 					var bookmark_desc = $(row).find(".bookmark_desc").html();
 					var bookmark_url = $(row).find(".bookmark_url").attr("href");
 					
@@ -133,11 +135,10 @@ function getBookmarks(folder_id) {
 					$url_column.append(
 						$("<a/>", {class: "bookmark_url", href: bookmark_url, target: "_blank"})
 					);			
-					$url_column.find("a").html("Link");
+					$url_column.find("a").html("Go");
 				}
 				
-				$(this).html($(this).html() == "Edit" ? "Update" : "Edit");
-				
+				$(this).toggleClass("editButton updateButton");				
 			});
 	
 	

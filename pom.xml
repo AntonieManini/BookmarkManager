@@ -9,6 +9,11 @@
   <url>http://maven.apache.org</url>
   <dependencies>
 	<dependency>
+	    <groupId>com.github.jsimone</groupId>
+	    <artifactId>webapp-runner</artifactId>
+	    <version>7.0.57.2</version>
+	</dependency>
+	<dependency>
 		<groupId>org.apache.commons</groupId>
 		<artifactId>commons-dbcp2</artifactId>
 		<version>2.1.1</version>
@@ -158,6 +163,30 @@
 				  </execution>
 				</executions>
 			  </plugin>
+				<plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>2.10</version>
+                        <executions>
+                            <execution>
+								<id>copy-dependencies</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>com.github.jsimone</groupId>
+                                            <artifactId>webapp-runner</artifactId>
+                                            <version>7.0.57.2</version>
+                                            <destFileName>webapp-runner.jar</destFileName>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>			  
 		</plugins>
 	</pluginManagement>
   </build>

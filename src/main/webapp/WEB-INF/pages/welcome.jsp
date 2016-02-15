@@ -70,6 +70,17 @@
 							</div>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 							<div class="form-group">
+								<div id="remember-me-container">
+									<div id="remember-me-input-container">
+										<input id="remember-me-input" name="remember-me" type="checkbox"/>
+									</div>
+									<div id="remember-me-label-container">
+										<p id="remember-me-label">Remember Me</p>
+									</div>
+								</div>
+								<div class="clear"></div>
+							</div>							
+							<div class="form-group">
 								<input name="submit" type="submit" value="Sign In" />
 							</div>
 						</form>

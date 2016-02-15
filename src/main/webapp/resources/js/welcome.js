@@ -27,13 +27,13 @@ $(document).ready(function() {
 		highlight: function(element, errorClass, validClass) {			
 			$(element).addClass(errorClass).removeClass(validClass);
 			var n = this.numberOfInvalids();
-			$("#form-container").css("height", 24 + 2*n + "vh");
+			$("#form-container").css("height", 32 + 2*n + "vh");
 			$(element).parent("div").removeClass("form-group").addClass("form-group-invalid");
 		},
 		unhighlight: function(element, errorClass, validClass) {			
 			$(element).removeClass(errorClass).addClass(validClass);
 			var n = this.numberOfInvalids();
-			$("#form-container").css("height", 24 + 2*n + "vh");
+			$("#form-container").css("height", 32 + 2*n + "vh");
 			$(element).parent("div").removeClass("form-group-invalid").addClass("form-group");
 		},
 		submitHandler: function(form) {
@@ -51,7 +51,7 @@ $(document).ready(function() {
 		var csrf_header = $("meta[name='_csrf_header']").attr("content");
 		var csrf_token = $("meta[name='_csrf']").attr("content");
 		
-		$('#form-container').css("height", "38vh");
+		$('#form-container').css("height", "40vh");
 		$("#form-container").append(			
 			$("<form/>", {id: "registerForm"}).append(
 				$("<div/>", {class: "form-group"}).append(

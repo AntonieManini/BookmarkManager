@@ -21,6 +21,14 @@
 		/>
 		
 	 	<security:logout logout-success-url="/welcome?logout"/>
+	 	
+		<security:remember-me
+			token-validity-seconds="1209600"
+			remember-me-parameter="remember-me"
+			data-source-ref="dataSource"
+			user-service-ref="securityUserService"
+		/>
+	 	
 		<security:csrf/>		
 	</security:http>
 	

@@ -43,19 +43,22 @@ $(document).ready(function() {
 	
 	$(".editButton").click(function() {
 		var row = $(this).parent('div');		
-		var $pointer = $(row).find(".folder_id");
 		
-		if ($(this).hasClass("editButton")) {			
+		if ($(this).hasClass("editButton")) {
 			var folder_name = $(row).find(".folder_name").html();
-			$(row).find(".folder_name").remove();
 			
-			$pointer.after(
+			$(row).find(".folder_name").remove();
+			$(row).find(".deleteButton").remove();
+			$(row).find(".addSubFolderButton").remove();
+			
+			$(row).prepend(
 				$("<input/>", {class: "folder_name", type: "text", name: "name", value: folder_name})
 			);
 		} 
 		else {
 			var folder_id = $(row).find(".folder_id").attr("value");
 			var folder_name = $(row).find(".folder_name").prop("value");
+			
 			var csrf_header = $("meta[name='_csrf_header']").attr("content");
 			var csrf_token = $("meta[name='_csrf']").attr("content");
 			
@@ -68,12 +71,28 @@ $(document).ready(function() {
 				}
 			});
 			
-			$(row).find(".folder_name").remove();
+			$(row).children().remove();
 			
-			$pointer.after(
-				$("<a/>", {class: "folder_name", href: "/bookmarks?id="+folder_id})
-			);			
-			$(row).find("a").html(folder_name);
+			var page_context = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+			$(row).append(
+				$("<input/>", {class: "folder_id", type: "hidden", value: folder_id}),
+				$("<a/>", {class: "folder_name", href: page_context+"/bookmarks?id="+folder_id}).html(folder_name),
+				$("<button/>", {class: "editButton", style: "display:none"}),
+				$("<button/>", {class: "deleteButton", style: "display:none"}),
+				$("<button/>", {class: "addSubFolderButton", style: "display:none"})				
+			);
+			$("a.folder_name").click(function() {
+				$(".tree_content").find(".current-folder").removeClass("current-folder");
+		
+				$(this).parent("div").addClass("current-folder").removeClass("mouseover");
+				var folder_id = $(this).parent("div").find(".folder_id").prop("value");
+		
+				$("#bookmarkAddForm").show();
+				getBookmarks(folder_id);
+		
+				return false;
+			});
+
 		}
 		
 		$(this).toggleClass("editButton updateButton");

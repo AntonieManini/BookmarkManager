@@ -71,7 +71,7 @@ public class FolderController {
 		folderService.deleteObject(id);
 	}
 	
-	@RequestMapping(value="/", method=RequestMethod.GET)
+	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public ModelAndView getAllFolders(HttpServletRequest request) {
 		HttpSession session = request.getSession(true);
 		System.out.println(SecurityUtil.getUsername());

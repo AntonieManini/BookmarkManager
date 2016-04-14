@@ -94,13 +94,13 @@ $(document).ready(function() {
 				xhr.setRequestHeader(csrf_header, csrf_token);
 			},			
 			success: function() {
-				$(row).parent("li").remove();
+				$(row).closest("li").remove();
 			}
 		});
 	});
 	
 	$(".addSubFolderButton").click(function() {
-		var row = $(this).parent("div").parent("li");
+		var row = $(this).closest("li");
 		
 		$(row).addClass("parent");
 		

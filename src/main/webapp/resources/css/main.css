@@ -1,0 +1,172 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	font-family: 'Open Sans', sans-serif;
+}
+
+input {
+	font-family: 'Open Sans', sans-serif;
+}
+
+#wrapper {
+	width: 100%;
+	height: 100%;
+}
+
+#header {
+	height: 10vh;
+	width: 100%;
+	border-bottom: 1px solid #000000;
+}
+
+form {
+	float: left;
+}
+
+#container {
+	clear: both;
+	height: 90vh;
+	background-color: #e6e6e6;
+}
+
+.pane {
+	float:left;	
+	height: 80%;	
+}
+
+#tree-pane {
+	width: 30%;	
+}
+
+#list-pane {
+	width: 70%;
+}
+
+.tree_header, .list_header {
+	height: 50px;
+	margin: 10px;
+}
+
+.tree_content, .list_content {
+	border: solid 1px black;
+	margin: 10px;
+	height: 100%;
+	background-color: #ffffff;
+	overflow: visible;
+}
+
+.tree_content ul {
+	list-style-type: none;
+}
+
+.current-folder {
+	background-color: rgba(0, 71, 179, 0.5);	
+}
+
+.current-folder a {
+	color: #ffffff;
+}
+
+.authenticated-user {
+	height: 100%;
+	padding-top: 2vh;
+	padding-left: 1vw;
+}
+
+.authenticated-user * {
+	display: inline;
+}
+
+.export-import-content {
+	height: 100%;
+	padding-right: 1vw;
+	padding-top: 2vh;
+}
+
+#user-info {
+	float: left;
+	height: 100%;
+}
+
+#export-import {
+	float: right;
+	height: 100%;
+}
+
+button.editButton {
+	width: 25px;
+	height: 25px;
+	border: none;
+	background-color: transparent;
+	background-image: url('../img/edit.png');
+	background-size: 15px 15px;
+	background-repeat: no-repeat;	
+}
+
+button.updateButton {
+	width: 25px;
+	height: 25px;
+	border: none;
+	background-color: transparent;
+	background-image: url('../img/update.png');
+	background-size: 15px 15px;
+	background-repeat: no-repeat;	
+}
+
+button.deleteButton {
+	width: 25px;
+	height: 25px;
+	border: none;
+	background-color: transparent;
+	background-image: url('../img/remove.png');
+	background-size: 15px 15px;
+	background-repeat: no-repeat;	
+}
+
+button.addSubFolderButton {
+	width: 25px;
+	height: 25px;
+	border: none;
+	background-color: transparent;
+	background-image: url('../img/add.png');
+	background-size: 15px 15px;
+	background-repeat: no-repeat;
+}
+
+.mouseover {
+	background-color: rgba(77, 148, 255, 0.2);	
+}
+
+.folder-row {
+	height: 25px;
+	width: 100%;
+}
+
+.folder-row div {
+	display: inline-block;
+}
+
+.folder-icon-container {
+	width: 20px;
+	height: 20px;
+}
+
+.folder-icon {
+	height: 100%;
+	width: 100%;
+}
+
+.content {
+	width: 100%-20px;
+	display: inline;
+}
+
+.content a {
+	text-decoration: none;
+}
+
+
+

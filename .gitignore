@@ -3,5 +3,4 @@
 target/*
 .settings/*
 .springBeans
-.openshift/*
 openshift_postgre.png

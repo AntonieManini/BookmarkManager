@@ -16,7 +16,7 @@
 	 	<security:form-login 
 			login-page="/welcome"
 			login-processing-url="/login"
-			default-target-url="/list"
+			default-target-url="/"
 			authentication-failure-url="/welcome?error"			
 			username-parameter="email"
 			password-parameter="password"

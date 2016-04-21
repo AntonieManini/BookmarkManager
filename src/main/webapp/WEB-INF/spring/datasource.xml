@@ -8,10 +8,10 @@
 	<context:property-placeholder location="/WEB-INF/config/openshift_postgresql.properties"/>
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName" value="${database.driver}"/>
-		<property name="url" value="jdbc:#{systemEnvironment['OPENSHIFT_POSTGRESQL_DB_URL']}"/>
-	 	<property name="username" value="#{systemEnvironment['OPENSHIFT_POSTGRESQL_DB_USERNAME']}"/>
-		<property name="password" value="#{systemEnvironment['OPENSHIFT_POSTGRESQL_DB_PASSWORD']}"/>
+		<property name="driverClassName" value="org.postgresql.Driver"/>
+		<property name="url" value="jdbc:postgresql://127.10.247.130:5432/burito"/>
+	 	<property name="username" value="adminzafln8r"/>
+		<property name="password" value="gWSt9HPLS9KD"/>
 	</bean>
 
 </beans>

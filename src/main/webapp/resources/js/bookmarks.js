@@ -147,11 +147,16 @@ function getBookmarks(folder_id) {
 				
 				$(bookmark_row).addClass("toRemove");
 				var bookmark_id = $(bookmark_row).find(".bookmark_id").attr("value");
-				
+				var csrf_header = $("meta[name='_csrf_header']").attr("content");
+				var csrf_token = $("meta[name='_csrf']").attr("content");
+			
 				$.ajax({
 					type: "POST",
 					url: "./bookmarks/delete",
 					data: {id: bookmark_id},			
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader(csrf_header, csrf_token);
+					},
 					success: function() {
 						$(".toRemove").remove();
 					}

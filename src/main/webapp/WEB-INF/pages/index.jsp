@@ -64,19 +64,19 @@
 		<div id="container">
 			<div id="tree-pane" class="pane">
 				<div class="tree_header">
-				<form id="folderAddForm">
-					<input class="newFolderName" type="text" name="name" 
-						required pattern="[a-zA-Z0-9]+"
-						oninvalid="this.setCustomValidity('Enter Alphanumeric Folder Name')"
-						onchange="this.setCustomValidity('')"  />						
-					<input type="submit" value="Add New Folder"/>
-				</form>			
-			</div>
+					<form id="folderAddForm">
+						<input class="newFolderName" type="text" name="name" 
+							required pattern="[a-zA-Z0-9]+"
+							oninvalid="this.setCustomValidity('Enter Alphanumeric Folder Name')"
+							onchange="this.setCustomValidity('')"  />						
+						<input type="submit" value="Add New Folder"/>
+					</form>			
+				</div>
 				<div class="tree_content">
-				<ul>
-					<custom:folderTree list="${folders}"></custom:folderTree>
-				</ul>			
-			</div>
+					<ul>
+						<custom:folderTree list="${folders}"></custom:folderTree>
+					</ul>			
+				</div>
 			</div>		
 			<div id="list-pane" class="pane">			
 				<div class="list_header">

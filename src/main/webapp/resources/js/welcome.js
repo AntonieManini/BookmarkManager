@@ -27,13 +27,13 @@ $(document).ready(function() {
 		highlight: function(element, errorClass, validClass) {			
 			$(element).addClass(errorClass).removeClass(validClass);
 			var n = this.numberOfInvalids();
-			$("#form-container").css("height", 32 + 2*n + "vh");
+			$("#form-container").css("height", 200 + 25*n + "px");
 			$(element).parent("div").removeClass("form-group").addClass("form-group-invalid");
 		},
 		unhighlight: function(element, errorClass, validClass) {			
 			$(element).removeClass(errorClass).addClass(validClass);
 			var n = this.numberOfInvalids();
-			$("#form-container").css("height", 32 + 2*n + "vh");
+			$("#form-container").css("height", 200 + 25*n + "px");
 			$(element).parent("div").removeClass("form-group-invalid").addClass("form-group");
 		},
 		submitHandler: function(form) {

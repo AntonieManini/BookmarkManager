@@ -34,7 +34,7 @@ form {
 
 .pane {
 	float:left;	
-	height: 80%;	
+	height: 100%;	
 }
 
 #tree-pane {
@@ -53,9 +53,9 @@ form {
 .tree_content, .list_content {
 	border: solid 1px black;
 	margin: 10px;
-	height: 100%;
+	height: 85%;
 	background-color: #ffffff;
-	overflow: visible;
+	overflow: auto;
 }
 
 .tree_content ul {

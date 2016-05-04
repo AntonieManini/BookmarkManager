@@ -168,5 +168,17 @@ button.addSubFolderButton {
 	text-decoration: none;
 }
 
+.collapsibleList li{
+  cursor:auto;
+}
+
+li.collapsibleListOpen{
+  cursor:pointer;
+}
+
+li.collapsibleListClosed{
+  cursor:pointer;
+}
+
 
 

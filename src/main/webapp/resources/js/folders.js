@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	CollapsibleLists.apply();
+	
 	$(".content").on("mouseover", function() {
 		if (!$(this).hasClass("current-folder")) {
 			$(this).addClass("mouseover");

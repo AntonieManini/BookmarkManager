@@ -73,7 +73,7 @@
 					</form>			
 				</div>
 				<div class="tree_content">
-					<ul>
+					<ul class="collapsibleList">
 						<custom:folderTree list="${folders}"></custom:folderTree>
 					</ul>			
 				</div>
@@ -99,5 +99,6 @@
 	<script src="<c:url value="/resources/js/jquery.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/folders.js"/>"></script>
 	<script src="<c:url value="/resources/js/bookmarks.js"/>"></script>
+	<script src="<c:url value="/resources/js/CollapsibleLists.compressed.js"/>"></script>
 </body>
 </html>

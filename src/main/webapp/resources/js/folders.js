@@ -1,5 +1,20 @@
 $(document).ready(function() {
-	CollapsibleLists.apply();
+	$(".collapsible_list").hide();
+	
+	$(".folder-icon").on("mouseover", function() {
+		if ($(this).parents("li").first().find("ul").size() > 0) {
+			$(this).css("cursor", "pointer");
+		}			
+	});
+	
+	$(".folder-icon").on("mouseout", function() {
+		$(this).css("cursor", "auto");					
+	});
+
+	
+	$(".folder-icon").on("click", function() {
+		$(this).parents("li").first().find("ul").first().slideToggle();
+	});
 	
 	$(".content").on("mouseover", function() {
 		if (!$(this).hasClass("current-folder")) {
@@ -94,7 +109,6 @@ $(document).ready(function() {
 		
 				return false;
 			});
-
 		}
 		
 		$(this).toggleClass("editButton updateButton");

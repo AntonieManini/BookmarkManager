@@ -18,7 +18,7 @@
 		</div>
 
 		<c:if test="${not empty f.children}">			
-	 		<ul>
+	 		<ul class="collapsible_list">
 				<custom:folderTree list="${f.children}"/>
 			</ul>
 		</c:if>

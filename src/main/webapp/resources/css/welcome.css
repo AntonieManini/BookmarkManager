@@ -123,8 +123,8 @@ p, div {
 	margin-right: auto;
 	font-size: 20px;
 	margin-bottom: 0px;
-	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-top: 8px;
+	padding-bottom: 10px;
 	text-align: center;
 	
 	-webkit-box-sizing: border-box; /* For legacy WebKit based browsers */

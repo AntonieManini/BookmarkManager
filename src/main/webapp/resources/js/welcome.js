@@ -45,13 +45,14 @@ $(document).ready(function() {
 	});
 	
 	$("#signUpLink").click(function() {
+		$("#message-container").children().remove();		
 		$("#link-container").fadeOut(1000).delay(1000).remove();
 		$("#loginForm").fadeOut(1000).delay(1000).remove();
 		
 		var csrf_header = $("meta[name='_csrf_header']").attr("content");
 		var csrf_token = $("meta[name='_csrf']").attr("content");
 		
-		$('#form-container').css("height", "40vh");
+		$('#form-container').css("height", "200px");
 		$("#form-container").append(			
 			$("<form/>", {id: "registerForm"}).append(
 				$("<div/>", {class: "form-group"}).append(
@@ -142,28 +143,46 @@ $(document).ready(function() {
 									$("#message-container").find("div").delay(5000).fadeOut(2000, function() {
 										$(this).remove();
 									});
+
+									var csrf_header = $("meta[name='_csrf_header']").attr("content");
+									var csrf_token = $("meta[name='_csrf']").attr("content");
 									
+									console.log(csrf_header);
+									console.log(csrf_token);
+
 									$("#registerForm").remove();
-									$('#form-container').css("height", "24vh");
+									$('#form-container').css("height", "200px");
 									$("#form-container").append(			
-										$("<form/>", {id: "loginForm"}).append(
+										$("<form/>", {id: "loginForm", action: login_url, method: "POST"}).append(
 											$("<div/>", {class: "form-group"}).append(
 												$("<input/>", {id: "email", type: "text", name: "email", placeholder: "Enter your email"})
 											),
 											$("<div/>", {class: "form-group"}).append(
 												$("<input/>", {id: "password", type: "password", name: "password", placeholder: "Enter your password"})
-											),
+											),				
+											$("<input/>", {type: "hidden", name: csrf_header, value: csrf_token}),
+											$("<div/>", {class: "form-group"}).append(
+												$("<div/>", {id: "remember-me-container"}).append(
+													$("<div/>", {id: "remember-me-input-container"}).append(
+														$("<input/>", {id: "remember-me-input", name: "remember-me", type: "checkbox"})
+													),
+													$("<div/>", {id: "remember-me-label-container"}).append(
+														$("<p/>", {id: "remember-me-label"}).html("Remember Me")
+													)
+												),
+												$("<div/>", {class: "clear"})
+											),											
 											$("<div/>", {class: "form-group"}).append(
 												$("<input/>", {type: "submit", value: "Sign In"})
 											)
-										).hide().fadeIn(2000)
+										).hide().fadeIn(1000)
 									);
 									
 									$("#content-container").append(
 										$("<div/>", {id: "link-container"}).append(
 											$("<button/>", {id: "signUpLink"}).html("Sign Up")
 										)
-									).hide().fadeIn(2000);
+									).hide().fadeIn(1000);
 								},
 								error: function() {
 									alert("Error!");

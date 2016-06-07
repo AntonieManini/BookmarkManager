@@ -6,3 +6,4 @@ target/*
 .openshift/*
 openshift_postgre.png
 issues.txt
+*.properties

@@ -93,7 +93,7 @@ public class FolderController {
 	public void doExport(HttpServletResponse response) throws IOException {		
 		List<Folder> folders = folderService.getAllObjects();
 		
-		response.setHeader("content-type", "text/xml");
+		response.setHeader("content-type", "text/xml; charset=UTF-8");
 		response.setHeader("content-disposition", "attachment; filename=export.xml");
 		ExportManager.doExport(folders, "xml", response.getWriter());
 	}

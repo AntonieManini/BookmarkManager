@@ -7,6 +7,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="<c:url value="/resources/css/main.css"/>">	
+	<link rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.min.css"/>">	
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	
 	<meta name="_csrf" content="${_csrf.token}"/>
@@ -73,7 +74,7 @@
 					</form>			
 				</div>
 				<div class="tree_content">
-					<ul>
+					<ul id="folder_list">
 						<custom:folderTree list="${folders}"></custom:folderTree>
 					</ul>			
 				</div>
@@ -97,6 +98,7 @@
 		</div>
 	</div>
 	<script src="<c:url value="/resources/js/jquery.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery-ui.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/folders.js"/>"></script>
 	<script src="<c:url value="/resources/js/bookmarks.js"/>"></script>
 </body>

@@ -26,6 +26,13 @@ public class FolderDaoImpl implements FolderDao {
 		this.em = em;
 	}
 
+	public Folder get(int id) {
+		Folder result = em.find(Folder.class, id);
+		
+		if (result == null) result = new Folder();
+		
+		return result;
+	}
 	
 	public void insert(Folder folder) {
 		folder.setUsername(SecurityUtil.getUsername());
@@ -52,6 +59,22 @@ public class FolderDaoImpl implements FolderDao {
 		
 		em.flush();
 	}
+	
+	public void update(int id, int newParentId) {
+		Folder folder = this.get(id);
+		
+		if (newParentId != 0) {
+			Folder newParent = this.get(newParentId);			
+			folder.setParent(newParent);			
+		}
+		else {
+			folder.setParent(null);
+		}
+		
+		em.flush();
+		
+		refreshCollection();
+	}
 
 	public void delete(int id) {
 		Folder folder = em.find(Folder.class, id);
@@ -63,16 +86,10 @@ public class FolderDaoImpl implements FolderDao {
 		//System.out.println(SecurityUtil.getUsername());
 		
 		TypedQuery<Folder> query = em.createQuery("SELECT f FROM Folder f WHERE f.parent=NULL AND f.username=:user", Folder.class);
-		query.setParameter("user", SecurityUtil.getUsername());
+		query.setParameter("user", SecurityUtil.getUsername());		
 		
 		List<Folder> result = (List<Folder>)query.getResultList();
-		
-		for (Folder f : result) {
-			if (f != null) {
-				System.out.println(f.getFolderId() + "  " + f.getName() + "  " + f.getUsername() + " Parent: " + (f.getParent() == null ? "null" : f.getParent().getFolderId()));
-			}
-		}
-		
+	
 		return result;
 	}
 
@@ -96,5 +113,13 @@ public class FolderDaoImpl implements FolderDao {
 	public List<Folder> getAllObjects(int id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	private void refreshCollection() {
+		List<Folder> folders = getAllObjects();
+		
+		for (Folder folder: folders) {
+			em.refresh(folder);
+		}
 	}
 }

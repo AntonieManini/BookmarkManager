@@ -10,7 +10,8 @@ public interface FolderService {
 	void addObject(Folder t);
 	void addObject(Folder t, int parentId);
 	void deleteObject(int id);
-	void updateObject(int id, String name);	
+	void updateObject(int id, String name);
+	void changeParent(int objectId, int newParentId);
 	List<Folder> getAllObjects();
 	List<Folder> getAllObjects(int id);
 }

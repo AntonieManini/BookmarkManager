@@ -41,4 +41,9 @@ public class FolderServiceImpl implements FolderService {
 	public void addObject(Folder t, int parentId) {
 		folderDao.insert(t, parentId);
 	}
+	
+	public void changeParent(int id, int newParentId){
+		folderDao.update(id, newParentId);
+	}
+	
 }

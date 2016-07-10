@@ -5,13 +5,15 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
-	<context:property-placeholder location="/WEB-INF/config/database.properties"/>
+	<!--
+	<context:property-placeholder location="/WEB-INF/config/heroku_postgresql.properties"/>
+	-->
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName" value="${database.driver}"/>
-		<property name="url" value="jdbc:postgresql://ec2-54-225-199-245.compute-1.amazonaws.com:5432/dpa1rti2ha71s?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
-	 	<property name="username" value="${database.username}"/>
-		<property name="password" value="${database.password}"/>
+		<property name="driverClassName" value="org.postgresql.Driver"/>
+		<property name="url" value="jdbc:postgresql://127.0.0.1:5432/bookmarks"/>
+	 	<property name="username" value="postgres"/>
+		<property name="password" value="root"/>
 	</bean>
 
 </beans>

@@ -1,4 +1,104 @@
 $(document).ready(function() {
+	$(".folder-row").draggable(
+		{
+			scope: "folders",
+			revert: "invalid",
+			stop: function(event, ui) {
+				
+			}
+		}
+	);
+	
+	$(".tree_content").droppable(
+		{
+			scope: "folders",
+			drop: function(event, ui) {
+				var csrf_header = $("meta[name='_csrf_header']").attr("content");
+				var csrf_token = $("meta[name='_csrf']").attr("content");
+
+				var child_id = $(ui.draggable).find(".folder_id").prop("value");
+
+				$(this).find("#folder_list").append(
+					$("<li/>").append(
+						ui.draggable
+					)
+				);
+				
+				$.ajax({
+					type: "POST",
+					url: "folders/change_parent",
+					data: {id: child_id, parent_id: 0},
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader(csrf_header, csrf_token);
+					},
+					success: function() {
+						
+					}
+				});				
+			}
+		}
+	);
+	
+	$(".folder-row").droppable(
+		{
+			scope: "folders",			
+			accept: ".folder-row",
+			drop: function(event, ui) {
+				var csrf_header = $("meta[name='_csrf_header']").attr("content");
+				var csrf_token = $("meta[name='_csrf']").attr("content");
+
+				var child_id = $(ui.draggable).find(".folder_id").prop("value");
+				var parent_li = $(this).parent("li");
+				var parent_id = $(parent_li).find(".folder_id").prop("value");
+				var nested_ul = $(parent_li).find("ul");				
+				
+				console.log("Child ID: " + child_id);
+				console.log("Parent ID: " + parent_id);
+				
+				if (nested_ul.length != 0) {
+					$(nested_ul).append(
+						$("<li/>").append(
+							ui.draggable
+						)
+					);
+					
+					$.ajax({
+						type: "POST",
+						url: "folders/change_parent",
+						data: {id: child_id, parent_id: parent_id},
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader(csrf_header, csrf_token);
+						},
+						success: function() {
+							
+						}
+					});
+				}
+				else {
+					$(this).parent("li").append(
+						$("<ul/>").append(
+							$("<li/>").append(
+								ui.draggable
+							)
+						)
+					);
+					
+					$.ajax({
+						type: "POST",
+						url: "folders/change_parent",
+						data: {id: child_id, parent_id: parent_id},
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader(csrf_header, csrf_token);
+						},
+						success: function() {
+							
+						}
+					});					
+				}					
+			}
+		}
+	);
+	
 	$(".collapsible_list").hide();
 	
 	$(".folder-icon").on("mouseover", function() {

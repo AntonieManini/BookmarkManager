@@ -71,6 +71,11 @@ public class FolderController {
 		folderService.deleteObject(id);
 	}
 	
+	@RequestMapping(value="/folders/change_parent", method=RequestMethod.POST)
+	public @ResponseBody void replaceFolder(@RequestParam int id, @RequestParam(name="parent_id") int newParentId) {
+		folderService.changeParent(id, newParentId);
+	}	
+	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public ModelAndView getAllFolders(HttpServletRequest request) {
 		HttpSession session = request.getSession(true);

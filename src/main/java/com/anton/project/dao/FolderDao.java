@@ -5,9 +5,11 @@ import java.util.List;
 import com.anton.project.domain.Folder;
 
 public interface FolderDao {
+	Folder get(int id);
 	void insert(Folder t);
 	void insert(Folder t, int parentId);
 	void update(int id, String name);
+	void update(int id, int newParentId);
 	void delete(int id);
 	List<Folder> getAllObjects();
 	List<Folder> getAllObjects(int id);

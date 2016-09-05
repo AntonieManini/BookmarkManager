@@ -26,12 +26,11 @@ public class BookmarkServiceImpl implements BookmarkService {
 		bookmarkDao.delete(id);
 	}
 
-	public void updateObject(int id, String desc, String url) {
-		bookmarkDao.update(id, desc, url);
+	public void updateObject(int id, String desc, String url, int folderId) {
+		bookmarkDao.update(id, desc, url, folderId);
 	}
 
 	public List<Bookmark> getAllObjects() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

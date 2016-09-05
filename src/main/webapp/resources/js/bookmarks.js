@@ -116,7 +116,7 @@ function getBookmarks(folder_id) {
 					$.ajax({
 						type: "POST",
 						url: "./bookmarks/update",
-						data: {bookmarkId: bookmark_id, desc: bookmark_desc, url: bookmark_url},
+						data: {bookmarkId: bookmark_id, desc: bookmark_desc, url: bookmark_url, folder_id: folder_id},
 						beforeSend: function(xhr) {
 							xhr.setRequestHeader(csrf_header, csrf_token);
 						}
@@ -162,7 +162,17 @@ function getBookmarks(folder_id) {
 					}
 				});
 			});	
-					
+			
+			$(".list_content").find("tr").draggable({
+				scope: "bookmarks",
+				revert: "invalid",
+				start: function(event, ui) {
+					$(".folder-row").droppable("option", "scope", "bookmarks");
+				},
+				stop: function(event, ui) {													
+					$(".folder-row").droppable("option", "scope", "folders");
+				}				
+			});					
 		}
 	});
 }

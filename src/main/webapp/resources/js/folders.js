@@ -1,18 +1,28 @@
 $(document).ready(function() {
+	var folder_list_height = $(".folder-list").css("height");
+	var tree_content_height = $(".tree_content").css("height");
+	console.log(folder_list_height);
+	console.log(tree_content_height);
+	if (tree_content_height - folder_list_height > 100) {
+		$(".top-level-droppable").css("height", (tree_content_height - folder_list_height) + "px");
+	}
+	else {
+		$(".top-level-droppable").css("height", "100px");
+	}
+	
 	$(".folder-row").draggable(
 		{
 			scope: "folders",
-			revert: "invalid",
-			stop: function(event, ui) {
-				
-			}
+			revert: "invalid"
 		}
 	);
 	
-	$(".tree_content").droppable(
+	$(".top-level-droppable").droppable(
 		{
 			scope: "folders",
 			drop: function(event, ui) {
+				console.log("Dropped to Tree-Content");
+				
 				var csrf_header = $("meta[name='_csrf_header']").attr("content");
 				var csrf_token = $("meta[name='_csrf']").attr("content");
 
@@ -34,7 +44,7 @@ $(document).ready(function() {
 					success: function() {
 						
 					}
-				});				
+				});
 			}
 		}
 	);
@@ -42,59 +52,83 @@ $(document).ready(function() {
 	$(".folder-row").droppable(
 		{
 			scope: "folders",			
-			accept: ".folder-row",
+			accept: ".folder-row, tr",
 			drop: function(event, ui) {
 				var csrf_header = $("meta[name='_csrf_header']").attr("content");
 				var csrf_token = $("meta[name='_csrf']").attr("content");
-
-				var child_id = $(ui.draggable).find(".folder_id").prop("value");
-				var parent_li = $(this).parent("li");
-				var parent_id = $(parent_li).find(".folder_id").prop("value");
-				var nested_ul = $(parent_li).find("ul");				
 				
-				console.log("Child ID: " + child_id);
-				console.log("Parent ID: " + parent_id);
-				
-				if (nested_ul.length != 0) {
-					$(nested_ul).append(
-						$("<li/>").append(
-							ui.draggable
-						)
-					);
+				if ($(ui.draggable)[0].tagName == "TR") {
+					console.log(ui);
+					var bookmark = $(ui.draggable)[0];
+					var bookmark_id = $(bookmark).find(".bookmark_id").attr("value");
+					var bookmark_desc = $(bookmark).find(".bookmark_desc").html();
+					var bookmark_url = $(bookmark).find(".bookmark_url").attr("href");
+					var folder_id = $(this).find(".folder_id").attr("value");
 					
 					$.ajax({
 						type: "POST",
-						url: "folders/change_parent",
-						data: {id: child_id, parent_id: parent_id},
+						url: "bookmarks/update",
+						data: {bookmarkId: bookmark_id, desc: bookmark_desc, url: bookmark_url, folder_id: folder_id},
 						beforeSend: function(xhr) {
 							xhr.setRequestHeader(csrf_header, csrf_token);
 						},
 						success: function() {
-							
+							console.log("Successfully saved Bookmark to another Folder");
 						}
-					});
+					});					
+
+					$(bookmark).remove();
 				}
 				else {
-					$(this).parent("li").append(
-						$("<ul/>").append(
+					var child_id = $(ui.draggable).find(".folder_id").prop("value");
+					var parent_li = $(this).parent("li");
+					var parent_id = $(parent_li).find(".folder_id").prop("value");
+					var nested_ul = $(parent_li).find("ul");				
+					
+					console.log("Child ID: " + child_id);
+					console.log("Parent ID: " + parent_id);
+					
+					if (nested_ul.length != 0) {
+						$(nested_ul).append(
 							$("<li/>").append(
 								ui.draggable
 							)
-						)
-					);
-					
-					$.ajax({
-						type: "POST",
-						url: "folders/change_parent",
-						data: {id: child_id, parent_id: parent_id},
-						beforeSend: function(xhr) {
-							xhr.setRequestHeader(csrf_header, csrf_token);
-						},
-						success: function() {
-							
-						}
-					});					
-				}					
+						);
+						
+						$.ajax({
+							type: "POST",
+							url: "folders/change_parent",
+							data: {id: child_id, parent_id: parent_id},
+							beforeSend: function(xhr) {
+								xhr.setRequestHeader(csrf_header, csrf_token);
+							},
+							success: function() {
+								
+							}
+						});
+					}
+					else {
+						$(this).parent("li").append(
+							$("<ul/>").append(
+								$("<li/>").append(
+									ui.draggable
+								)
+							)
+						);
+						
+						$.ajax({
+							type: "POST",
+							url: "folders/change_parent",
+							data: {id: child_id, parent_id: parent_id},
+							beforeSend: function(xhr) {
+								xhr.setRequestHeader(csrf_header, csrf_token);
+							},
+							success: function() {
+								
+							}
+						});					
+					}										
+				}
 			}
 		}
 	);

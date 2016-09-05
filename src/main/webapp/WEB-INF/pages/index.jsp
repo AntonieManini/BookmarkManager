@@ -74,9 +74,13 @@
 					</form>			
 				</div>
 				<div class="tree_content">
-					<ul id="folder_list">
-						<custom:folderTree list="${folders}"></custom:folderTree>
-					</ul>			
+					<div class="folder-list">
+						<ul id="folder_list">
+							<custom:folderTree list="${folders}"></custom:folderTree>
+						</ul>
+					</div>
+					<div class="top-level-droppable">
+					</div>
 				</div>
 			</div>		
 			<div id="list-pane" class="pane">			

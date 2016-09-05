@@ -48,8 +48,8 @@ public class BookmarkController {
 	@RequestMapping(value="/bookmarks/update", method=RequestMethod.POST)
 	public @ResponseBody void updateBookmark(@RequestParam(name="bookmarkId") int bookmarkId, 
 								 @RequestParam(name="desc") String desc,
-								 @RequestParam(name="url") String url) {
-		bookmarkService.updateObject(bookmarkId, desc, url);
+								 @RequestParam(name="url") String url, @RequestParam(name="folder_id") int folderId) {
+		bookmarkService.updateObject(bookmarkId, desc, url, folderId);
 	}
 	
 	@RequestMapping(value="/bookmarks/delete", method=RequestMethod.POST)
@@ -84,7 +84,7 @@ public class BookmarkController {
 			
 			return "";
 		}
-	}	
+	}
 }
 
 

@@ -89,11 +89,12 @@ $(document).ready(function() {
 					console.log("Parent ID: " + parent_id);
 					
 					if (nested_ul.length != 0) {
+						/*
 						$(nested_ul).append(
 							$("<li/>").append(
-								ui.draggable
+								ui.draggable								
 							)
-						);
+						);*/
 						
 						$.ajax({
 							type: "POST",
@@ -103,18 +104,20 @@ $(document).ready(function() {
 								xhr.setRequestHeader(csrf_header, csrf_token);
 							},
 							success: function() {
-								
+								window.location.reload();	
 							}
 						});
 					}
 					else {
+						/*
 						$(this).parent("li").append(
 							$("<ul/>").append(
 								$("<li/>").append(
 									ui.draggable
+									
 								)
 							)
-						);
+						);*/
 						
 						$.ajax({
 							type: "POST",
@@ -124,12 +127,13 @@ $(document).ready(function() {
 								xhr.setRequestHeader(csrf_header, csrf_token);
 							},
 							success: function() {
-								
+								window.location.reload();
 							}
 						});					
 					}										
 				}
-			}
+			},
+			tolerance: "pointer"
 		}
 	);
 	

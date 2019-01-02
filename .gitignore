@@ -4,6 +4,6 @@ target/*
 .settings/*
 .springBeans
 .openshift/*
-openshift_postgre.png
-issues.txt
 *.properties
+.idea/*
+*.iml

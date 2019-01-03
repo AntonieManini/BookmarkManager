@@ -1,3 +1,3 @@
 #!/bin/bash
 mvn clean install
-java -jar webapp-runner.jar ./target/bookmark-manager.war
+mvn tomcat7:run
